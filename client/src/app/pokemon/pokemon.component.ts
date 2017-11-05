@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Http } from '@angular/http'
 
 @Component({
   selector: 'app-pokemon',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PokemonComponent implements OnInit {
 
-  constructor() { }
+  pokeData: object;
+
+  constructor(private http: Http) { }
+
 
   ngOnInit() {
+    this.http.get("http://localhost:3000/api/pokemon/")
+      .subscribe( data => {
+        console.log(data);
+      });
   }
 
 }
