@@ -12,7 +12,7 @@ router.use(function(req, res, next) {
 
 //Get All Pokemon
 router.get('/pokemon', function(req, res, next){
-    db.pokemon.find(function(err, pokemon){
+    db.pokemon.find().sort({id:1}).limit(10, function(err, pokemon){
         if(err){
             res.send(err);
         }
