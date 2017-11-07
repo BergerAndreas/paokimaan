@@ -1,10 +1,15 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import {HttpModule} from "@angular/http";
+import { HttpModule } from "@angular/http";
+import { MatTableModule, MatListModule } from '@angular/material'
 
+//Components
 import { AppComponent } from './app.component';
 import { PokemonComponent } from './pokemon/pokemon.component';
 import { AccountComponent } from './account/account.component';
+
+//Services
+import { PokemonService } from "./services/pokemon.service";
 
 @NgModule({
   declarations: [
@@ -14,9 +19,13 @@ import { AccountComponent } from './account/account.component';
   ],
   imports: [
     BrowserModule,
-    HttpModule
+    HttpModule,
+    MatListModule,
+    MatTableModule
   ],
-  providers: [],
+  providers: [
+    PokemonService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

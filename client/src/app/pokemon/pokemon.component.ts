@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Http } from '@angular/http'
+import { PokemonService } from "../services/pokemon.service";
+
 
 @Component({
   selector: 'app-pokemon',
@@ -8,16 +9,38 @@ import { Http } from '@angular/http'
 })
 export class PokemonComponent implements OnInit {
 
-  pokeData: object;
+  pokeData: Pokemon[];
+  isLoading: boolean = true;
 
-  constructor(private http: Http) { }
-
+  displayedColumns:string[] = ['id', 'name'];
+  constructor(private pokemonService: PokemonService) { }
 
   ngOnInit() {
-    this.http.get("http://localhost:3000/api/pokemon/")
-      .subscribe( data => {
-        console.log(data);
-      });
+    this.getPokemen();
   }
 
+  getPokemen() : void {
+    this.pokemonService.getPokemen().subscribe(
+      data => this.pokeData = data,
+      err => console.log(err),
+      () => this.isLoading = false
+    );
+  }
+
+}
+
+//Interface for pokemon API
+export interface Pokemon{
+  _id:string,
+  stats: object,
+  name: string,
+  weight: number,
+  order: number,
+  height: number,
+  is_default: boolean,
+  id: number,
+  in_games: string[],
+  moves: string[],
+  type: string[],
+  sprites: object
 }
