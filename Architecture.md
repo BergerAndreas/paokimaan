@@ -12,7 +12,7 @@ For å håndtere server-siden av web-applikasjonen vår, planlegger vi å bruke 
 Vi bruker mLab sin Amazon-deployment av MongoDB som “storage as a service”. 
 
 ### MEAN Stack implementasjon
-![Mean Stack](https://www.dealfuel.com/wp-content/uploads/2016/10/meanjs-1024x492.png "Mean Stack")
+<img src="https://www.dealfuel.com/wp-content/uploads/2016/10/meanjs-1024x492.png" width="600" height="300" />
 
 ### Database
 Oversikt over attributtene i Pokemon-databasen: <br>
