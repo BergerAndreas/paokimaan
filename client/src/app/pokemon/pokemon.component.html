@@ -1,3 +1,7 @@
-<p>
-  pokemon works!
-</p>
+<mat-list>
+  <mat-list-item *ngFor="let pokemon of pokeData">
+    <h3 matLine> {{pokemon.name}}</h3>
+    <h3 matLine> {{pokemon.id}} </h3>
+    <p matLine> {{pokemon.type}} </p>
+  </mat-list-item>
+</mat-list>
