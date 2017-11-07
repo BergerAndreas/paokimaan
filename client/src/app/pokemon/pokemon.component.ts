@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PokemonService } from "../services/pokemon.service";
+import { DataSource } from "@angular/cdk/collections";
+import { Observable } from "rxjs/Observable";
 
 
 @Component({
@@ -10,9 +12,10 @@ import { PokemonService } from "../services/pokemon.service";
 export class PokemonComponent implements OnInit {
 
   pokeData: Pokemon[];
+  dataSource = new PokemonDataSource(this.pokemonService);
+  displayedColumns = ['sprites', 'id', 'name', 'type'];
   isLoading: boolean = true;
 
-  displayedColumns:string[] = ['id', 'name'];
   constructor(private pokemonService: PokemonService) { }
 
   ngOnInit() {
@@ -27,6 +30,19 @@ export class PokemonComponent implements OnInit {
     );
   }
 
+}
+
+export class PokemonDataSource extends DataSource<any>{
+
+  constructor(private pokemonService: PokemonService){
+    super();
+  }
+
+  connect(): Observable<Pokemon[]>{
+    return this.pokemonService.getPokemen();
+  }
+
+  disconnect(){ }
 }
 
 //Interface for pokemon API
