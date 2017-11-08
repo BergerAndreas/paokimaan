@@ -11,7 +11,7 @@ const pokemonSchema = new mongoose.Schema({
   in_games: [String],
   moves: [String],
   type: [String],
-  sprites: [String]
+  sprites: Object
 },{collection:'pokemon'});
 
 const Pokemon = mongoose.model('Pokemon', pokemonSchema);
