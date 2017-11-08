@@ -16,6 +16,7 @@ import { PokemonService } from "./services/pokemon.service";
 import { UserService } from "./services/user.service";
 import { DashboardComponent } from './dashboard/dashboard.component';
 import {AuthGuard} from "./auth.guard";
+import { NotFoundComponent } from './not-found/not-found.component';
 
 const appRoutes:Routes = [
   {
@@ -30,6 +31,10 @@ const appRoutes:Routes = [
     path: 'dashboard',
     canActivate: [AuthGuard],
     component: DashboardComponent
+  },
+  {
+    path: '**',
+    component: NotFoundComponent
   }
 
 ];
@@ -42,6 +47,7 @@ const appRoutes:Routes = [
     AccountComponent,
     LoginFormComponent,
     DashboardComponent,
+    NotFoundComponent,
   ],
   imports: [
     BrowserModule,
