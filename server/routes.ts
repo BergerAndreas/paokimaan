@@ -12,6 +12,13 @@ export default function setRoutes(app) {
   const pokemonCtrl = new PokemonCtrl();
   const userCtrl = new UserCtrl();
 
+  //Allow client to fetch data
+  router.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*"); //Can change * to allow request from specific clients
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+  });
+
   // Cats
   router.route('/pokemon').get(pokemonCtrl.getAll);
   router.route('/pokemon/count').get(pokemonCtrl.count);
