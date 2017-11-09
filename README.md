@@ -5,3 +5,9 @@
 # SquadTeam45
 
 prrrrr
+
+Server:
+*Be in root, run "npm run dev"
+
+Client:
+*Go to client directory, run "npm start"
