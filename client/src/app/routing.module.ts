@@ -20,6 +20,7 @@ const routes: Routes = [
   { path: 'logout', component: LogoutComponent },
   { path: 'account', component: AccountComponent, canActivate: [AuthGuardLogin] },
   { path: 'admin', component: AdminComponent, canActivate: [AuthGuardAdmin] },
+  { path: '**', component: NotFoundComponent },
 ];
 
 @NgModule({
