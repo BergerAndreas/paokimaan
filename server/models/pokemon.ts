@@ -1,4 +1,5 @@
 import * as mongoose from 'mongoose';
+import * as mongoosePaginate from 'mongoose-paginate'
 
 const pokemonSchema = new mongoose.Schema({
   name: String,
@@ -13,6 +14,8 @@ const pokemonSchema = new mongoose.Schema({
   type: [String],
   sprites: Object
 },{collection:'pokemon'});
+
+pokemonSchema.plugin(mongoosePaginate)
 
 const Pokemon = mongoose.model('Pokemon', pokemonSchema);
 
