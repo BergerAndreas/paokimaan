@@ -13,9 +13,10 @@ import { LogoutComponent } from './logout/logout.component';
 import { AccountComponent } from './account/account.component';
 import { AdminComponent } from './admin/admin.component';
 import { NotFoundComponent } from './not-found/not-found.component';
-import {PokemonComponent} from "./pokemon/pokemon.component";
-import {PokemonService} from "./services/pokemon.service";
-import { MatTableModule, MatListModule } from '@angular/material'
+import { PokemonComponent} from "./pokemon/pokemon.component";
+import { PokemonService} from "./services/pokemon.service";
+import { MatTableModule, MatListModule, MatToolbarModule, MatButtonModule, MatIconModule } from '@angular/material'
+import { NavbarComponent} from "./navbar/navbar.component"
 
 @NgModule({
   declarations: [
@@ -26,13 +27,17 @@ import { MatTableModule, MatListModule } from '@angular/material'
     LogoutComponent,
     AccountComponent,
     AdminComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    NavbarComponent
   ],
   imports: [
     RoutingModule,
     SharedModule,
     MatListModule,
-    MatTableModule
+    MatTableModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatIconModule
   ],
   providers: [
     AuthService,

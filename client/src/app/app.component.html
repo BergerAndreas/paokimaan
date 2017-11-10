@@ -1,28 +1,18 @@
-<div class="container">
 
-  <nav class="navbar navbar-dark bg-primary">
-    <div class="nav navbar-nav">
-      <a routerLink="/" class="nav-item nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">
-        <i class="fa fa-home"></i> Home
-      </a>
-      <a routerLink="/login" class="nav-item nav-link" routerLinkActive="active" *ngIf="!auth.loggedIn">
-        <i class="fa fa-sign-in"></i> Login
-      </a>
-      <a routerLink="/register" class="nav-item nav-link" routerLinkActive="active" *ngIf="!auth.loggedIn">
-        <i class="fa fa-user-plus"></i> Register
-      </a>
-      <a routerLink="/account" class="nav-item nav-link" routerLinkActive="active" *ngIf="auth.loggedIn">
-        <i class="fa fa-user"></i> Account ({{auth.currentUser.username}})
-      </a>
-      <a routerLink="/admin" class="nav-item nav-link" routerLinkActive="active" *ngIf="auth.loggedIn && auth.isAdmin">
-        <i class="fa fa-lock"></i> Admin
-      </a>
-      <a routerLink="/logout" class="nav-item nav-link" routerLinkActive="active" *ngIf="auth.loggedIn">
-        <i class="fa fa-sign-out"></i> Logout
-      </a>
-    </div>
-  </nav>
 
-  <router-outlet></router-outlet>
+<div class="toolbar">
+  <mat-toolbar color="primary">
+  <span>PAOKIMÅN</span>
 
+    <span class="menu_buttons"></span>
+      <button mat-button [routerLink]="['/']" ><mat-icon>accessible</mat-icon> PAOKIMÅN</button>
+      <button mat-button [routerLink]="['/login']" routerLinkActive="active" *ngIf="!auth.loggedIn" ><mat-icon>airline_seat_flat_angled</mat-icon> Login</button>
+      <button mat-button [routerLink]="['/register']" routerLinkActive="active" *ngIf="!auth.loggedIn" ><mat-icon>weekend</mat-icon> Register</button>
+      <button mat-button [routerLink]="['/account']" routerLinkActive="active" *ngIf="auth.loggedIn"><mat-icon>wc</mat-icon> Account ({{auth.currentUser.username}})</button>
+      <button mat-button [routerLink]="['/admin']" routerLinkActive="active" *ngIf="auth.loggedIn && auth.isAdmin" ><mat-icon>fitness_center</mat-icon> Register</button>
+      <button mat-button [routerLink]="['/logout']" routerLinkActive="active" *ngIf="auth.loggedIn"><mat-icon>child_care</mat-icon> Logout</button>
+
+  </mat-toolbar>
 </div>
+
+<router-outlet></router-outlet>
