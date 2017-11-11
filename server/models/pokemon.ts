@@ -6,7 +6,7 @@ const pokemonSchema = new mongoose.Schema({
   id: Number,
   weight: Number,
   height: Number,
-  stats: [String],
+  stats: Object,
   order: Number,
   is_default: Boolean,
   in_games: [String],
