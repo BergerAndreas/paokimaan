@@ -1,5 +1,12 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { HttpModule } from "@angular/http";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
+//Material
+import { MatTableModule, MatListModule } from '@angular/material'
+//Core
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RoutingModule } from './routing.module';
 import { SharedModule } from './shared/shared.module';
 import { UserService } from './services/user.service';
@@ -31,6 +38,12 @@ import { NavbarComponent} from "./navbar/navbar.component"
     NavbarComponent
   ],
   imports: [
+ pokemonTableView
+    BrowserModule,
+    HttpModule,
+    BrowserAnimationsModule,
+
+    //Material
     RoutingModule,
     SharedModule,
     MatListModule,
