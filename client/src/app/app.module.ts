@@ -1,6 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule } from "@angular/http";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+
+//Material
 import { MatTableModule, MatListModule } from '@angular/material'
 
 //Components
@@ -20,6 +23,9 @@ import { PokemonService } from "./services/pokemon.service";
   imports: [
     BrowserModule,
     HttpModule,
+    BrowserAnimationsModule,
+
+    //Material
     MatListModule,
     MatTableModule
   ],
@@ -28,4 +34,5 @@ import { PokemonService } from "./services/pokemon.service";
   ],
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }

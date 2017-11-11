@@ -1,6 +1,5 @@
 
-
-<div>
+<div class="example-container">
   <mat-table [dataSource]="dataSource">
 
     <!--Image-->
@@ -29,7 +28,22 @@
       <mat-cell *matCellDef="let pokemon"> {{pokemon.type}} </mat-cell>
     </ng-container>
 
+    <!-- Expanded Content Column - The detail row is made up of this one column -->
+    <ng-container matColumnDef="expandedDetail">
+      <mat-cell *matCellDef="let detail">
+        The weight of {{detail.element.name}} is {{detail.element.weight}} lb.
+      </mat-cell>
+    </ng-container>
+
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"
+             matRipple
+             class="element-row"
+             [class.expanded]="expandedElement == row"
+             (click)="expandedElement = row"></mat-row>
+    <mat-row *matRowDef="let row; columns: ['expandedDetail']; when: isExpansionDetailRow"
+             [@detailExpand]="row.element == expandedElement ? 'expanded' : 'collapsed'"
+             style="overflow: hidden">
+    </mat-row>
   </mat-table>
 </div>
