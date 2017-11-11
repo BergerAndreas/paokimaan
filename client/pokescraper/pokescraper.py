@@ -18,14 +18,16 @@ def json_to_dict():
         #print(dic["stats"][0]["stat"]["name"], dic["stats"][0]["base_stat"])
         #print(dic["sprites"])
 
+
 def create_small_dic():
+    hundreogfemtien = 152
     small_dic_list = []
-    for i in range(1,11):
+    for i in range(1,hundreogfemtien):
         url = "https://pokeapi.co/api/v2/pokemon/"+str(i)
         print(url)
         sys("wget " +url)
 
-    for k in range(1,11):
+    for k in range(1,hundreogfemtien):
         with open(str(k)) as file:
             json_file = file.read()
             big_dic = loads(json_file)
@@ -73,7 +75,11 @@ def create_small_dic():
             small_dic_list.append(small_dic)
 
             file.close()
-    with open("pokemon.json", "w") as outfile:
-        dump(small_dic_list, outfile)
+
+        with open("pokemon.json", "w") as outfile:
+            outfile.write(str(dumps(small_dic_list)))
+
+    sys("mongoimport -h ds241395.mlab.com:41395 -d pokeweebs -c pokemon -u daase -p daase --file pokemon.json --jsonArray")
+
 
 create_small_dic()
