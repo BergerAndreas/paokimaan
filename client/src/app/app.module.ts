@@ -1,11 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { HttpModule } from "@angular/http";
-import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-
-//Material
-import { MatTableModule, MatListModule } from '@angular/material'
-//Core
+import { HttpModule } from '@angular/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RoutingModule } from './routing.module';
 import { SharedModule } from './shared/shared.module';
@@ -20,10 +15,10 @@ import { LogoutComponent } from './logout/logout.component';
 import { AccountComponent } from './account/account.component';
 import { AdminComponent } from './admin/admin.component';
 import { NotFoundComponent } from './not-found/not-found.component';
-import { PokemonComponent} from "./pokemon/pokemon.component";
-import { PokemonService} from "./services/pokemon.service";
-import { MatTableModule, MatListModule, MatToolbarModule, MatButtonModule, MatIconModule } from '@angular/material'
-import { NavbarComponent} from "./navbar/navbar.component"
+import { PokemonComponent} from './pokemon/pokemon.component';
+import { PokemonService} from './services/pokemon.service';
+import { MatTableModule, MatListModule, MatToolbarModule, MatButtonModule, MatIconModule } from '@angular/material';
+import { NavbarComponent} from './navbar/navbar.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +33,6 @@ import { NavbarComponent} from "./navbar/navbar.component"
     NavbarComponent
   ],
   imports: [
- pokemonTableView
     BrowserModule,
     HttpModule,
     BrowserAnimationsModule,
