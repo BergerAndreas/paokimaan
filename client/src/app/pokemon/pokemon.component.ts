@@ -1,10 +1,16 @@
-import {Component, OnInit, ElementRef, NgZone, OnDestroy, NgModule} from '@angular/core';
-import { PokemonService } from "../services/pokemon.service";
-import { DataSource } from "@angular/cdk/collections";
-import { Observable } from "rxjs/Observable";
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { PokemonService } from '../services/pokemon.service';
+import { DataSource } from '@angular/cdk/collections';
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
+import 'rxjs/add/observable/merge';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/startWith';
+import 'rxjs/add/operator/switchMap';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { PokeStatsComponent } from "../poke-stats/poke-stats.component";
+import { PokeStatsComponent } from '../poke-stats/poke-stats.component';
+import { MatPaginator } from '@angular/material';
 
 
 @Component({
@@ -19,27 +25,58 @@ import { PokeStatsComponent } from "../poke-stats/poke-stats.component";
     ]),
   ],
 })
+
 export class PokemonComponent implements OnInit {
 
-  dataSource = new PokemonDataSource(this.pokemonService);
-
+  dataSource: PokemonDataSource | null;
   displayedColumns = ['sprites', 'id', 'name', 'type'];
+  @ViewChild(MatPaginator) paginator: MatPaginator;
   isExpansionDetailRow = (row) => row.hasOwnProperty('detailRow');
 
   constructor(private pokemonService: PokemonService) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.dataSource = new PokemonDataSource(this.pokemonService, this.paginator);
+  }
 
 }
 
 export class PokemonDataSource extends DataSource<any>{
 
-  constructor(private pokemonService: PokemonService){
+  resultsLength = 0;
+  pageSize = 0;
+  isLoadingResults = false;
+
+  constructor(private pokemonService: PokemonService,
+              private paginator: MatPaginator){
     super();
 
   }
 
   connect(): Observable<Pokemon[]>{
+
+    const displayDataChanges = [
+      this.paginator.page
+    ];
+
+    return Observable.merge(...displayDataChanges)
+      .startWith(null)
+      .switchMap(() => {
+        this.isLoadingResults = true;
+        let data = this.pokemonService.getPokePage(this.paginator.pageIndex+1);
+        return data;
+      })
+      .map((pokemen) => {
+        console.log(pokemen);
+        const rows = [];
+        this.isLoadingResults = false;
+        pokemen["docs"].forEach(element => rows.push(element, { detailRow: true, element }));
+
+        this.pageSize = Number(pokemen["limit"]);
+        this.resultsLength = Number(pokemen["total"]);
+        return rows;
+      });
+    /*
     return this.pokemonService.getPokemen()
       .map( (pokemon) => {
         const rows = [];

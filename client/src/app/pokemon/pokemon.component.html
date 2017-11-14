@@ -56,4 +56,7 @@
              style="overflow: hidden">
     </mat-row>
   </mat-table>
+  <mat-paginator [length]="dataSource.resultsLength"
+                 [pageSize]="dataSource.pageSize">
+  </mat-paginator>
 </div>
