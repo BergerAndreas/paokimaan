@@ -19,7 +19,14 @@ import { AuthGuardLogin } from './services/auth-guard-login.service';
 import { AuthGuardAdmin } from './services/auth-guard-admin.service';
 
 // Modules
-import { MatTableModule, MatListModule, MatToolbarModule, MatButtonModule, MatIconModule } from '@angular/material';
+import { MatPaginatorModule,
+         MatTableModule,
+         MatListModule,
+         MatToolbarModule,
+         MatButtonModule,
+         MatIconModule,
+         MatProgressSpinnerModule
+       } from '@angular/material';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -53,7 +60,9 @@ import { SharedModule } from './shared/shared.module';
     MatTableModule,
     MatToolbarModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    MatPaginatorModule,
+    MatProgressSpinnerModule
   ],
   providers: [
     D3Service,

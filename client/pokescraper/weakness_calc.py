@@ -1,4 +1,5 @@
 
+# Hard coding for life <3
 TYPES = {"normal":
              {"weak_against": ["fighting"],
               "resists": [],
@@ -75,6 +76,12 @@ TYPES = {"normal":
               "no_effect": []},
 }
 
+# Finds all the strengts, weaknesses and no_effects of a pokemon with types
+"""
+  Usage:
+    get_weaknesses([water, grass])
+    returns -> {'no_effect': [], 'weak_against': ['poison', 'flying', 'bug'], 'resists': ['water', 'ground']}
+"""
 def get_weaknesses(types):
 
     thing_dic = {"weak_against": [],

@@ -42,16 +42,17 @@ export class PokemonDataSource extends DataSource<any>{
   connect(): Observable<Pokemon[]>{
     return this.pokemonService.getPokemen()
       .map( (pokemon) => {
-        let rows = [];
+        const rows = [];
         pokemon.forEach(element => rows.push(element, { detailRow: true, element }));
         return rows;
       });
+     */
   }
 
   disconnect() { }
 }
 
-//Interface for pokemon API
+// Interface for pokemon API
 export interface Pokemon {
   _id:string;
   stats: object;

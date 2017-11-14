@@ -33,20 +33,15 @@ export class PokeStatsComponent implements OnInit {
 
   ngOnInit() {
     // Set D3
-    let self = this;
-    let d3 = this.d3;
-    let d3ParentElement: any;
+    const d3 = this.d3;
     let svg: any;
-    let name: string;
-    let yVal: number;
     let colors: any = [];
-    let data: {name: string, yVal: number}[] = [];
-    let padding: number = 25;
-    let width: number = 500;
-    let height: number = 150;
+    const data: {name: string, yVal: number}[] = [];
+    const padding: number = 25;
+    const width: number = 500;
+    const height: number = 150;
     let xScale: any;
     let yScale: any;
-    let xColor: any;
     let xAxis: any;
     let yAxis: any;
 
@@ -60,7 +55,7 @@ export class PokeStatsComponent implements OnInit {
       colors = ['red', 'yellow', 'green', 'blue', 'pink', 'steelblue'];
 
       // Load data into the barchart
-      for (let stat in this.pokemonStats['element']['stats']) {
+      for (const stat in this.pokemonStats['element']['stats']) {
         if (this.pokemonStats['element']['stats'].hasOwnProperty(stat)) {
           data.push({name : stat,
                      yVal : this.pokemonStats['element']['stats'][stat]});
@@ -84,30 +79,30 @@ export class PokeStatsComponent implements OnInit {
         .scale(yScale)
         .ticks(7);
 
-      svg.append("g")
-        .attr("class", "axis")
-        .attr("transform", "translate(" + (padding) + "," + padding + ")")
+      svg.append('g')
+        .attr('class', 'axis')
+        .attr('transform', 'translate(' + (padding) + ',' + padding + ')')
         .call(yAxis);
 
       svg.append('g')            // create a <g> element
         .attr('class', 'axis')   // specify classes
-        .attr("transform", "translate(" + padding + "," + (height - padding) + ")")
+        .attr('transform', 'translate(' + padding + ',' + (height - padding) + ')')
         .call(xAxis);            // let the axis do its thing
 
-      let rects = svg.selectAll('rect')
+      const rects = svg.selectAll('rect')
         .data(data);
       rects.size();
 
-      let newRects = rects.enter();
+      const newRects = rects.enter();
 
       newRects.append('rect')
         .attr('x', function (d, i) {
-          return xScale(d.name)-5;
+          return xScale(d.name) - 5;
         })
         .attr('y', function (d) {
           return yScale(d.yVal);
         })
-        .attr("transform", "translate(" + (padding - 5 + 25) + "," + (padding - 5) + ")")
+        .attr('transform', 'translate(' + (padding - 5 + 25) + ',' + (padding - 5) + ')')
         .attr('height', function (d) {
           return height - yScale(d.yVal) - (2 * padding) + 5;
         })
