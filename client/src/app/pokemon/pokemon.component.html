@@ -25,7 +25,9 @@
     <!--Type-->
     <ng-container matColumnDef="type">
       <mat-header-cell *matHeaderCellDef>Type</mat-header-cell>
-      <mat-cell *matCellDef="let pokemon"> {{pokemon.type}} </mat-cell>
+      <mat-cell *matCellDef="let pokemon">
+          <img *ngFor="let type of pokemon.type" src="../../assets/types/{{type}}.png" alt="{{type}}" height="20">
+      </mat-cell>
     </ng-container>
 
     <!-- Expanded Content Column - The detail row is made up of this one column -->
