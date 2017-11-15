@@ -2,12 +2,26 @@
 [![Prrrr](https://img.shields.io/badge/Prrrr-Prrrr-blue.svg)](https://forum.wordreference.com/threads/prrrr.2322271/)
 [![Jeff](https://img.shields.io/badge/My_name-Jeff-brightgreen.svg)](http://i0.kym-cdn.com/entries/icons/original/000/016/894/mynameehhjeff.jpg)
 
-# SquadTeam45
+# SquadTeam45 
 
 prrrrr
 
-Server:
-*Be in root, run "npm run dev"
+### Run the app
 
-Client:
-*Go to client directory, run "npm start"
+```bash
+git clone https://github.com/IT2810/it2810-webutvikling-h17-prosjekt-4-squadteam-45.git
+cd it2810-webutvikling-h17-prosjekt-4-squadteam-45
+npm i
+npm run dev
+```
+
+The app runs on localhost:4200
+
+### Run tests
+
+```bash
+npm run testbe
+```
+
+
+### Ikke fuck databasen vår plz takk
