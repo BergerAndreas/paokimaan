@@ -25,7 +25,8 @@ import { MatPaginatorModule,
          MatToolbarModule,
          MatButtonModule,
          MatIconModule,
-         MatProgressSpinnerModule
+         MatProgressSpinnerModule,
+         MatInputModule
        } from '@angular/material';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
@@ -62,7 +63,8 @@ import { SharedModule } from './shared/shared.module';
     MatButtonModule,
     MatIconModule,
     MatPaginatorModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatInputModule
   ],
   providers: [
     D3Service,
