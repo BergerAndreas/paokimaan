@@ -1,5 +1,10 @@
 
-<div class="example-container">
+<div class="poke-container">
+  <div class="loading-shade" *ngIf="dataSource.isLoadingResults">
+    <mat-spinner></mat-spinner>
+  </div>
+
+  <!-- Display Content in tabel -->
   <mat-table [dataSource]="dataSource">
 
     <!--Image-->
@@ -25,13 +30,18 @@
     <!--Type-->
     <ng-container matColumnDef="type">
       <mat-header-cell *matHeaderCellDef>Type</mat-header-cell>
-      <mat-cell *matCellDef="let pokemon"> {{pokemon.type}} </mat-cell>
+      <mat-cell *matCellDef="let pokemon">
+          <img *ngFor="let type of pokemon.type" src="../../assets/types/{{type}}.png" alt="{{type}}" height="20">
+      </mat-cell>
     </ng-container>
 
     <!-- Expanded Content Column - The detail row is made up of this one column -->
     <ng-container matColumnDef="expandedDetail">
       <mat-cell *matCellDef="let detail">
         The weight of {{detail.element.name}} is {{detail.element.weight}} lb.
+
+        <!-- Pass pokeStats to child -->
+        <app-poke-stats [pokemonStats] = "detail" ></app-poke-stats>
       </mat-cell>
     </ng-container>
 
@@ -46,4 +56,7 @@
              style="overflow: hidden">
     </mat-row>
   </mat-table>
+  <mat-paginator [length]="dataSource.resultsLength"
+                 [pageSize]="dataSource.pageSize">
+  </mat-paginator>
 </div>
