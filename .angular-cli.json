@@ -1,15 +1,15 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "project": {
-    "name": "pokedex"
+    "name": "angular2-full-stack"
   },
   "apps": [
     {
-      "root": "src",
-      "outDir": "dist",
+      "root": "client",
+      "outDir": "dist/public",
       "assets": [
         "assets",
-        "favicon.ico"
+        "assets/favicon.ico"
       ],
       "index": "index.html",
       "main": "main.ts",
@@ -21,7 +21,10 @@
       "styles": [
         "styles.css"
       ],
-      "scripts": [],
+      "scripts": [
+        "../node_modules/jquery/dist/jquery.min.js",
+        "../node_modules/tether/dist/js/tether.min.js"
+      ],
       "environmentSource": "environments/environment.ts",
       "environments": {
         "dev": "environments/environment.ts",
@@ -36,11 +39,11 @@
   },
   "lint": [
     {
-      "project": "src/tsconfig.app.json",
+      "project": "client/tsconfig.app.json",
       "exclude": "**/node_modules/**"
     },
     {
-      "project": "src/tsconfig.spec.json",
+      "project": "client/tsconfig.spec.json",
       "exclude": "**/node_modules/**"
     },
     {
@@ -54,10 +57,7 @@
     }
   },
   "defaults": {
-    "styleExt": "css",
-    "class": {
-      "spec": false
-    },
+    "styleExt": "scss",
     "component": {}
   }
 }
