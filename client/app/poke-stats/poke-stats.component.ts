@@ -32,6 +32,7 @@ export class PokeStatsComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log(this.pokemonStats);
     // Set D3
     const d3 = this.d3;
     let svg: any;

@@ -1,6 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { NO_ERRORS_SCHEMA } from "@angular/core";
 import { PokemonComponent } from './pokemon.component';
+import { MatTableModule } from "@angular/material";
+import { PokemonService } from "../services/pokemon.service";
+import { HttpModule } from "@angular/http";
+import { MatPaginator, MatPaginatorIntl, MatExpansionModule } from '@angular/material';
+
 
 describe('PokemonComponent', () => {
   let component: PokemonComponent;
@@ -8,7 +13,10 @@ describe('PokemonComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PokemonComponent ]
+      declarations: [ PokemonComponent, MatPaginator ],
+      schemas: [ NO_ERRORS_SCHEMA ],
+      imports : [ MatTableModule, HttpModule, MatExpansionModule ],
+      providers : [ PokemonService, MatPaginatorIntl ]
     })
     .compileComponents();
   }));

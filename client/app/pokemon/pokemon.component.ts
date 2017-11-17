@@ -9,7 +9,6 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/switchMap';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { PokeStatsComponent } from '../poke-stats/poke-stats.component';
 import { MatPaginator } from '@angular/material';
 
 
@@ -45,7 +44,6 @@ export class PokemonDataSource extends DataSource<any>{
 
   resultsLength = 0;
   pageSize = 0;
-  isLoadingResults = false;
 
   constructor(private pokemonService: PokemonService,
               private paginator: MatPaginator){
@@ -62,14 +60,12 @@ export class PokemonDataSource extends DataSource<any>{
     return Observable.merge(...displayDataChanges)
       .startWith(null)
       .switchMap(() => {
-        this.isLoadingResults = true;
         let data = this.pokemonService.getPokePage(this.paginator.pageIndex+1);
         return data;
       })
       .map((pokemen) => {
         console.log(pokemen);
         const rows = [];
-        this.isLoadingResults = false;
         pokemen["docs"].forEach(element => rows.push(element, { detailRow: true, element }));
 
         this.pageSize = Number(pokemen["limit"]);

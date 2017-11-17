@@ -39,40 +39,54 @@ describe('Component: App', () => {
   }));
 
   it('should display the navigation bar correctly for guests', () => {
-    const de = fixture.debugElement.queryAll(By.css('a'));
-    expect(de.length).toBe(4);
-    expect(de[2].nativeElement.textContent).toContain('Login');
-    expect(de[3].nativeElement.textContent).toContain('Register');
-    expect(de[0].attributes['routerLink']).toBe('/');
-    expect(de[2].attributes['routerLink']).toBe('/login');
-    expect(de[3].attributes['routerLink']).toBe('/register');
+    const de = fixture.debugElement.queryAll(By.css('button'));
+    const de2 = fixture.debugElement.queryAll(By.css('span'));
+    expect(de.length).toBe(3);
+    expect(de2.length).toBe(2);
+
+    expect(de[0].nativeElement.textContent).toContain('accessible PAOKIMÅN');
+    expect(de[1].nativeElement.textContent).toContain('airline_seat_flat_angled Login');
+    expect(de[2].nativeElement.textContent).toContain('weekend Register');
+    expect(de[0].properties['routerLink'][0]).toBe('/');
+    expect(de[1].properties['routerLink'][0]).toBe('/login');
+    expect(de[2].properties['routerLink'][0]).toBe('/register');
   });
 
   it('should display the navigation bar correctly for logged users', () => {
     authService.loggedIn = true;
     fixture.detectChanges();
-    const de = fixture.debugElement.queryAll(By.css('a'));
-    expect(de.length).toBe(4);
-    expect(de[2].nativeElement.textContent).toContain('Account (Tester)');
-    expect(de[3].nativeElement.textContent).toContain('Logout');
-    expect(de[0].attributes['routerLink']).toBe('/');
-    expect(de[2].attributes['routerLink']).toBe('/account');
-    expect(de[3].attributes['routerLink']).toBe('/logout');
+    const de = fixture.debugElement.queryAll(By.css('button'));
+
+    expect(de.length).toBe(3);
+
+    expect(de[0].nativeElement.textContent).toContain('accessible PAOKIMÅN');
+    expect(de[1].nativeElement.textContent).toContain('Account (Tester)');
+    expect(de[2].nativeElement.textContent).toContain('Logout');
+
+    expect(de[0].properties['routerLink'][0]).toBe('/');
+    expect(de[1].properties['routerLink'][0]).toBe('/account');
+    expect(de[2].properties['routerLink'][0]).toBe('/logout');
   });
 
   it('should display the navigation bar correctly for admin users', () => {
     authService.loggedIn = true;
     authService.isAdmin = true;
     fixture.detectChanges();
-    const de = fixture.debugElement.queryAll(By.css('a'));
-    expect(de.length).toBe(5);
-    expect(de[2].nativeElement.textContent).toContain('Account (Tester)');
-    expect(de[3].nativeElement.textContent).toContain('Admin');
-    expect(de[4].nativeElement.textContent).toContain('Logout');
-    expect(de[0].attributes['routerLink']).toBe('/');
-    expect(de[2].attributes['routerLink']).toBe('/account');
-    expect(de[3].attributes['routerLink']).toBe('/admin');
-    expect(de[4].attributes['routerLink']).toBe('/logout');
+
+    const de = fixture.debugElement.queryAll(By.css('button'));
+    const de2 = fixture.debugElement.queryAll(By.css('span'));
+    expect(de.length).toBe(4);
+    expect(de2.length).toBe(2);
+
+    expect(de[0].nativeElement.textContent).toContain('accessible PAOKIMÅN');
+    expect(de[1].nativeElement.textContent).toContain('wc Account (Tester)');
+    expect(de[2].nativeElement.textContent).toContain('fitness_center Register');
+    expect(de[3].nativeElement.textContent).toContain('child_care Logout');
+
+    expect(de[0].properties['routerLink'][0]).toBe('/');
+    expect(de[1].properties['routerLink'][0]).toBe('/account');
+    expect(de[2].properties['routerLink'][0]).toBe('/admin');
+    expect(de[3].properties['routerLink'][0]).toBe('/logout');
   });
 
 });
