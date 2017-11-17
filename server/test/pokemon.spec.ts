@@ -4,15 +4,21 @@ import * as chaiHttp from 'chai-http';
 process.env.NODE_ENV = 'test';
 import { app } from '../app';
 import Pokemon from '../models/pokemon';
-
+import {TestPokemon} from './testpokemon'
 const should = chai.use(chaiHttp).should();
 
 describe('Pokemon', () => {
 
   beforeEach(done => {
     Pokemon.remove({}, err => {
-      done();
     });
+
+    let pokemon = new Pokemon(
+      TestPokemon
+    );
+    pokemon.save((err) => {
+      done()
+    })
   });
 
   describe('Backend tests for Pokemen', () => {
@@ -24,7 +30,7 @@ describe('Pokemon', () => {
           should.not.exist(err);
           res.should.have.status(200);
           res.body.should.be.a('array');
-          res.body.length.should.be.eql(151);
+          res.body.length.should.be.eql(1);
           done();
         });
     });
@@ -45,7 +51,7 @@ describe('Pokemon', () => {
         .end((err, res) => {
           res.should.have.status(200);
           res.body.should.be.a('number');
-          res.body.should.be.eql(151);
+          res.body.should.be.eql(1);
           done();
         });
     });
