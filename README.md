@@ -17,11 +17,31 @@ npm run dev
 
 The app runs on localhost:4200
 
-### Run tests
+### Run backend tests
 
 ```bash
 npm run testbe
 ```
 
+### Run frontend tests
+
+To run the tests do: 
+```bash
+cd client
+ng test --sourcemap=false
+```
+
+To check test coverage do:
+```bash
+cd client
+ng test --single-run --code-coverage --sourcemap=false
+```
+
+This should create a coverage folder inside the client directory 
+```bash
+cd coverage
+```
+
+Then open the `index.html` file
 
 ### Ikke fuck databasen vår plz takk
