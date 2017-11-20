@@ -24,21 +24,35 @@
     <!--Name-->
     <ng-container matColumnDef="name">
       <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
-      <mat-cell *matCellDef="let pokemon"> {{pokemon.name}} </mat-cell>
+      <mat-cell *matCellDef="let pokemon"> {{pokemon.name | capitalize}} </mat-cell>
     </ng-container>
 
     <!--Type-->
     <ng-container matColumnDef="type">
       <mat-header-cell *matHeaderCellDef>Type</mat-header-cell>
       <mat-cell *matCellDef="let pokemon">
-          <img *ngFor="let type of pokemon.type" src="../../assets/types/{{type}}.png" alt="{{type}}" height="20">
+          <img *ngFor="let type of pokemon.type" src="../../assets/types/{{type}}.png" alt="{{type | capitalize}}" height="20">
       </mat-cell>
     </ng-container>
 
     <!-- Expanded Content Column - The detail row is made up of this one column -->
     <ng-container matColumnDef="expandedDetail">
       <mat-cell *matCellDef="let detail">
-        The weight of {{detail.element.name}} is {{detail.element.weight}} lb.
+        {{detail.element.name | capitalize}} stands at {{ detail.element.height*0.1 | number : '1.2-2'}} meters tall, weighing in at {{ detail.element.weight*0.1 | number : '1.2-2'}} kilos.
+
+        <mat-grid-list  cols="2" rowHeight="2:1">
+          <!-- Front default -->
+          <mat-grid-tile><img src="{{detail.element.sprites.front_default}}" alt="Front Default"></mat-grid-tile>
+
+          <!-- Front Shiny -->
+          <mat-grid-tile><img src="{{detail.element.sprites.front_shiny}}" alt="Front Shiny"></mat-grid-tile>
+
+          <!-- Back Default -->
+          <mat-grid-tile><img src="{{detail.element.sprites.back_default}}" alt="Back"></mat-grid-tile>
+
+          <!-- Back Shiny -->
+          <mat-grid-tile><img src="{{detail.element.sprites.back_shiny}}" alt="Back Shiny"></mat-grid-tile>
+        </mat-grid-list>
 
         <!-- Pass pokeStats to child -->
         <app-poke-stats [pokemonStats] = "detail" ></app-poke-stats>
