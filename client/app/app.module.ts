@@ -19,16 +19,18 @@ import { AuthGuardLogin } from './services/auth-guard-login.service';
 import { AuthGuardAdmin } from './services/auth-guard-admin.service';
 
 // Modules
-import { MatPaginatorModule,
-         MatTableModule,
-         MatListModule,
-         MatToolbarModule,
-         MatButtonModule,
-         MatIconModule,
-         MatProgressSpinnerModule,
-         MatInputModule,
-         MatSelectModule
-       } from '@angular/material';
+import {
+  MatPaginatorModule,
+  MatTableModule,
+  MatListModule,
+  MatToolbarModule,
+  MatButtonModule,
+  MatIconModule,
+  MatProgressSpinnerModule,
+  MatInputModule,
+  MatSelectModule,
+  MatGridListModule
+} from '@angular/material';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -36,6 +38,8 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RoutingModule } from './routing.module';
 import { SharedModule } from './shared/shared.module';
 
+// Pipes
+import { CapitalizePipe } from './pipes/capitalize.pipe';
 
 @NgModule({
   declarations: [
@@ -48,7 +52,8 @@ import { SharedModule } from './shared/shared.module';
     AdminComponent,
     NotFoundComponent,
     NavbarComponent,
-    PokeStatsComponent
+    PokeStatsComponent,
+    CapitalizePipe
   ],
   imports: [
     BrowserModule,
@@ -66,7 +71,8 @@ import { SharedModule } from './shared/shared.module';
     MatPaginatorModule,
     MatProgressSpinnerModule,
     MatInputModule,
-    MatSelectModule
+    MatSelectModule,
+    MatGridListModule
   ],
   providers: [
     D3Service,
