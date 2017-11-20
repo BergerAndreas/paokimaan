@@ -1,7 +1,5 @@
 <app-loading [condition]="isLoading"></app-loading>
 
-<app-toast [message]="toast.message"></app-toast>
-
 <div class="card" *ngIf="!isLoading">
   <h4 class="card-header">Registered users ({{users.length}})</h4>
   <div class="card-block">
@@ -25,12 +23,13 @@
         <td>{{user.email}}</td>
         <td>{{user.role}}</td>
         <td>
-          <button class="btn btn-sm btn-danger" (click)="deleteUser(user)" [disabled]="auth.currentUser._id === user._id">
-            <i class="fa fa-trash"></i>
+          <button mat-button color="warn" class="btn btn-sm btn-danger" (click)="deleteUser(user)" [disabled]="auth.currentUser._id === user._id">
+            <i class="fa fa-trash"></i>Delete user
           </button>
         </td>
       </tr>
       </tbody>
     </table>
   </div>
+  <app-toast [message]="toast.message"></app-toast>
 </div>
