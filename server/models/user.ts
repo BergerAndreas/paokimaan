@@ -6,7 +6,7 @@ const userSchema = new mongoose.Schema({
   email: { type: String, unique: true, lowercase: true, trim: true },
   password: String,
   role: String,
-  pokemen: [Number]
+  pokemen: [{type: mongoose.Schema.Types.ObjectId, ref: 'Pokemon'}]
 });
 
 // Before saving the user, hash the password
