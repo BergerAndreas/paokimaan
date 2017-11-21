@@ -39,9 +39,10 @@
     <ng-container matColumnDef="expandedDetail">
       <mat-cell *matCellDef="let detail">
         The weight of {{detail.element.name}} is {{detail.element.weight}} lb.
-
+        <button mat-raised-button color="primary" (click)="addPokemonToUser(detail.element)" *ngIf="auth.loggedIn"> Add to team! </button>
         <!-- Pass pokeStats to child -->
         <app-poke-stats [pokemonStats] = "detail" ></app-poke-stats>
+
       </mat-cell>
     </ng-container>
 
