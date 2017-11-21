@@ -4,12 +4,12 @@
 
     <span class="menu_buttons"></span>
       <button mat-button [routerLink]="['/']" ><mat-icon>accessible</mat-icon> PAOKIMÅN</button>
+    <button mat-button [routerLink]="['/chart']" routerLinkActive="active"><mat-icon>donut_small</mat-icon>PokeChart</button>
       <button mat-button [routerLink]="['/login']" routerLinkActive="active" *ngIf="!auth.loggedIn" ><mat-icon>airline_seat_flat_angled</mat-icon> Login</button>
       <button mat-button [routerLink]="['/register']" routerLinkActive="active" *ngIf="!auth.loggedIn" ><mat-icon>weekend</mat-icon> Register</button>
       <button mat-button [routerLink]="['/account']" routerLinkActive="active" *ngIf="auth.loggedIn"><mat-icon>wc</mat-icon> Account ({{auth.currentUser.username}})</button>
       <button mat-button [routerLink]="['/admin']" routerLinkActive="active" *ngIf="auth.loggedIn && auth.isAdmin" ><mat-icon>fitness_center</mat-icon> Admin</button>
       <button mat-button [routerLink]="['/logout']" routerLinkActive="active" *ngIf="auth.loggedIn"><mat-icon>child_care</mat-icon> Logout</button>
-      <button mat-button [routerLink]="['/chart']" routerLinkActive="active"><mat-icon>donut_small</mat-icon>PokeChart</button>
   </mat-toolbar>
 </div>
 

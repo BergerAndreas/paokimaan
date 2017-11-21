@@ -128,8 +128,9 @@ export class PokemonDataSource extends DataSource<any>{
       this._filterChange,
     ];
 
-    // If the user changes the sort order, reset back to the first page.
+    // If the user changes the sort order or filter, reset back to the first page.
     this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
+    this._filterChange.subscribe(() => this.paginator.pageIndex = 0);
 
     return Observable.merge(...displayDataChanges)
       .startWith(null)
