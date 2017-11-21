@@ -1,8 +1,7 @@
 <app-loading [condition]="isLoading"></app-loading>
 
-
-
 <div class="card" *ngIf="!isLoading">
+  <div class="account">
   <h2 class="card-header">Account settings</h2>
   <p>Here you can change your account settings if you want to :) </p>
   <br>
@@ -32,4 +31,49 @@
     </form>
   </div>
   <app-toast [message]="toast.message"></app-toast>
+  </div>
+
+  <div class="pokemon">
+  <h2 class="header">Your custom pokemon team!</h2>
+
+  <mat-grid-list *ngFor="let pokemen of user.pokemen" cols="5" rowHeight="100px">
+  <mat-grid-tile>
+    <h4>{{pokemen.name}}</h4>
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <img mat-line *ngFor="let type of pokemen.type" src="../../assets/types/{{type}}.png" alt="{{type}}" height="20" width="80">
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <img src="{{pokemen.sprites.front_default}}" alt="Pokeman">
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <button mat-raised-button color="primary" (click)=changePokemenList(pokemen)> Delete</button>  </mat-grid-tile>
+  </mat-grid-list>
+
+<!--
+<mat-accordion>
+  <mat-expansion-panel *ngFor="let pokemen of user.pokemen" >
+    <mat-expansion-panel-header collapsedHeight="100px">
+      <mat-panel-title>
+        {{pokemen.name}}
+      </mat-panel-title>
+      <mat-action-row>
+        <img mat-line *ngFor="let type of pokemen.type" src="../../assets/types/{{type}}.png" alt="{{type}}" height="20" width="80">
+      </mat-action-row>
+      <mat-action-row>
+        <img src="{{pokemen.sprites.front_default}}" alt="Pokeman">
+      </mat-action-row>
+      <mat-action-row>
+        <button mat-raised-button color="primary" (click)=changePokemenList(pokemen)> Delete</button>
+      </mat-action-row>
+    </mat-expansion-panel-header>
+  </mat-expansion-panel>
+  <mat-expansion-panel (opened)="panelOpenState = true"
+                       (closed)="panelOpenState = false">
+
+  </mat-expansion-panel>
+</mat-accordion>
+-->
+
+</div>
 </div>
