@@ -24,7 +24,7 @@
     <!--Name-->
     <ng-container matColumnDef="name">
       <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
-      <mat-cell *matCellDef="let pokemon"> {{pokemon.name | capitalize}} </mat-cell>
+      <mat-cell *matCellDef="let pokemon"> {{pokemon.name | capitalize: true}} </mat-cell>
     </ng-container>
 
     <!--Type-->
