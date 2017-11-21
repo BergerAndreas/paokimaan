@@ -9,6 +9,7 @@ import { AdminComponent } from './admin/admin.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { PokemonComponent} from './pokemon/pokemon.component';
 import { PokeStatsComponent } from './poke-stats/poke-stats.component';
+import { PokeChartComponent } from "./poke-chart/poke-chart.component";
 
 // Services
 import { PokemonService} from './services/pokemon.service';
@@ -27,7 +28,9 @@ import { MatPaginatorModule,
          MatIconModule,
          MatProgressSpinnerModule,
          MatInputModule,
-         MatSelectModule
+         MatSelectModule,
+         MatGridListModule,
+         MatCardModule
        } from '@angular/material';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
@@ -48,7 +51,8 @@ import { SharedModule } from './shared/shared.module';
     AdminComponent,
     NotFoundComponent,
     NavbarComponent,
-    PokeStatsComponent
+    PokeStatsComponent,
+    PokeChartComponent
   ],
   imports: [
     BrowserModule,
@@ -66,7 +70,9 @@ import { SharedModule } from './shared/shared.module';
     MatPaginatorModule,
     MatProgressSpinnerModule,
     MatInputModule,
-    MatSelectModule
+    MatSelectModule,
+    MatGridListModule,
+    MatCardModule
   ],
   providers: [
     D3Service,
