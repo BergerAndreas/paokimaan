@@ -87,18 +87,21 @@ export class PokemonDataSource extends DataSource<any>{
       .startWith(null)
       .switchMap(() => {
         console.log(this.sort.direction);
-        return this.pokemonService.getPokePage(this.sort.active, this.sort.direction, this.paginator.pageIndex, this._filterChange.getValue());
+        return this.pokemonService.getPokePage(this.sort.active, this.sort.direction, this.paginator.pageIndex,                 this._filterChange.getValue());
       })
       .map((pokemen) => {
+        const rows = [];
 
-        return pokemen['docs'].slice().filter((item: Pokemon) => {
-          const rows = [];
-          pokemen['docs'].forEach(element => rows.push(element, { detailRow: true, element }));
+        let rendered = pokemen['docs'].slice().filter((item: Pokemon) => {
           this.pageSize = Number(pokemen['limit']);
           this.resultsLength = Number(pokemen['total']);
           let searchStr = (item.name).toLowerCase();
+          console.log(searchStr);
+          console.log(rows);
           return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
         });
+        rendered.forEach(element => rows.push(element, { detailRow: true, element }));
+        return rows;
       });
   }
 
