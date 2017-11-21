@@ -29,7 +29,8 @@ import {
   MatProgressSpinnerModule,
   MatInputModule,
   MatSelectModule,
-  MatGridListModule
+  MatGridListModule,
+  MatSortModule
 } from '@angular/material';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
@@ -72,7 +73,8 @@ import { CapitalizePipe } from './pipes/capitalize.pipe';
     MatProgressSpinnerModule,
     MatInputModule,
     MatSelectModule,
-    MatGridListModule
+    MatGridListModule,
+    MatSortModule
   ],
   providers: [
     D3Service,
