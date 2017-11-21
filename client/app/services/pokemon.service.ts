@@ -22,4 +22,10 @@ export class PokemonService {
   getPokePage(pageNumber): Observable<any> {
     return this.http.get(`http://localhost:3000/api/pokemon/prr/${pageNumber}`).map(res => res.json());
   }
+
+  // Get all pokemon with type
+  getPokeType(type): Observable<any> {
+    return this.http.get(`http://localhost:3000/api/pokemon/type/${type}`).map(res => res.json());
+  }
+
 }

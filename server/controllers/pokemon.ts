@@ -27,7 +27,7 @@ export default class PokemonCtrl extends BaseCtrl {
       res.json(docs);
     })
   }
-
+  /*
   // Get pokemon by type
   getType = (req, res) => {
     this.model.find({ type: req.params.type }, (err, obj) => {
@@ -35,4 +35,15 @@ export default class PokemonCtrl extends BaseCtrl {
       res.json(obj);
     }).sort({id:1});
   }
+  */
+  // Get pokemon types by type
+  getType = (req, res) => {
+    console.log(req.params.type);
+    this.model.find({ type: req.params.type }, {type: true}, (err, obj) => {
+      if (err) { return console.error(err); }
+      res.json(obj);
+    }).sort({id:1});
+  }
+
+
 }
