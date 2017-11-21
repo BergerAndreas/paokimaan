@@ -25,7 +25,7 @@ export default class PokemonCtrl extends BaseCtrl {
     const type = req.query.type ? req.query.type : null;
     const sortBy = req.query.sortBy ? req.query.sortBy : 'id';
     const nameSearch = req.query.search ? req.query.search : null;
-    const order = req.query.order === '1' ? 1 : -1;
+    const order = req.query.order === 'asc' ? 1 : -1;
 
     const nameFilter = nameSearch ? {name: { '$regex': nameSearch, '$options': 'i' }} : {};
     const typeFilter = type ? {type : type} : {};
