@@ -19,8 +19,8 @@ export class PokemonService {
   }
 
   // Get page of tens
-  getPokePage(sort: string, order: string, page: number): Observable<any> {
-    return this.http.get(`http://localhost:3000/api/pokemon/prr/${page + 1}?sortBy=${sort}&order=${order}`).map(res => res.json());
+  getPokePage(sort: string, order: string, page: number, filter: string): Observable<any> {
+    return this.http.get(`http://localhost:3000/api/pokemon/prr/${page + 1}?sortBy=${sort}&order=${order}&search=${filter}`).map(res => res.json());
     // return this.http.get(`http://localhost:3000/api/pokemon/prr/?{sort}&order=${order}&page=${page + 1}`).map(res => res.json());
   }
 

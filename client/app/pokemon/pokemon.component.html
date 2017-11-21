@@ -1,12 +1,14 @@
-
 <div class="poke-container">
-  <div class="loading-shade" *ngIf="dataSource.isLoadingResults">
-    <mat-spinner></mat-spinner>
+
+  <div class="example-header">
+    <mat-form-field floatPlaceholder="never">
+      <input matInput #filter placeholder="Search for Paokimåns">
+    </mat-form-field>
   </div>
 
   <!-- Display Content in tabel -->
   <mat-table [dataSource]="dataSource"
-             matSort matSortActive="name" matSortDisableClear matSortDirection="asc">
+             matSort matSortActive="id" matSortDisableClear matSortDirection="asc">
 
     <!--Image-->
     <ng-container matColumnDef="sprites">
