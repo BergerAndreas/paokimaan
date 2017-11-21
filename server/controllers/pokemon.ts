@@ -22,7 +22,15 @@ export default class PokemonCtrl extends BaseCtrl {
 
   // Get ten pokemen
   getTen = (req, res) => {
-    this.model.paginate({}, { page: req.params.page,limit:10, sort:{id:1}}, (err, docs) => {
+    console.log(req.query.type)
+    const type = req.query.type ? req.query.type : null
+    const sortBy = req.query.sortBy ? req.query.sortBy : 'id'
+    if (type){
+      let typeFilter = {type : type};
+    } else {
+      let typeFilter = {};
+    }
+    this.model.paginate(typeFilter , {page: req.params.page,limit:10, sort:{[sortBy]:1}}, (err, docs) => {
       if (err) { return console.error(err); }
       res.json(docs);
     })
