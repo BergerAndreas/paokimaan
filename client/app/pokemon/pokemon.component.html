@@ -5,7 +5,8 @@
   </div>
 
   <!-- Display Content in tabel -->
-  <mat-table [dataSource]="dataSource">
+  <mat-table [dataSource]="dataSource"
+             matSort matSortActive="name" matSortDisableClear matSortDirection="asc">
 
     <!--Image-->
     <ng-container matColumnDef="sprites">
@@ -17,13 +18,13 @@
 
     <!--ID-->
     <ng-container matColumnDef="id">
-      <mat-header-cell *matHeaderCellDef>Id</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header disableClear="true">Id</mat-header-cell>
       <mat-cell *matCellDef="let pokemon"> {{pokemon.id}} </mat-cell>
     </ng-container>
 
     <!--Name-->
     <ng-container matColumnDef="name">
-      <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header disableClear="true">Name</mat-header-cell>
       <mat-cell *matCellDef="let pokemon"> {{pokemon.name | capitalize: true}} </mat-cell>
     </ng-container>
 
