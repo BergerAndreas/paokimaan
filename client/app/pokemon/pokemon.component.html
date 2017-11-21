@@ -36,6 +36,18 @@
       </mat-cell>
     </ng-container>
 
+    <!-- Weight -->
+    <ng-container matColumnDef="weight">
+      <mat-header-cell *matHeaderCellDef mat-sort-header disableClear="true">Weight</mat-header-cell>
+      <mat-cell *matCellDef="let pokemon"> {{pokemon.weight*0.1 | number : '1.2-2'}}kg </mat-cell>
+    </ng-container>
+
+    <!-- Height -->
+    <ng-container matColumnDef="height">
+      <mat-header-cell *matHeaderCellDef mat-sort-header disableClear="true">Height</mat-header-cell>
+      <mat-cell *matCellDef="let pokemon"> {{pokemon.height*0.1  | number : '1.2-2'}}m </mat-cell>
+    </ng-container>
+
     <!-- Expanded Content Column - The detail row is made up of this one column -->
     <ng-container matColumnDef="expandedDetail">
       <mat-cell *matCellDef="let detail">

@@ -30,7 +30,7 @@ import {Http} from '@angular/http';
 export class PokemonComponent implements OnInit {
 
   dataSource: PokemonDataSource | null;
-  displayedColumns = ['sprites', 'id', 'name', 'type'];
+  displayedColumns = ['sprites', 'name', 'id', 'weight', 'height', 'type'];
   isExpansionDetailRow = (row) => row.hasOwnProperty('detailRow');
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -71,6 +71,7 @@ export class PokemonDataSource extends DataSource<any>{
       .startWith(null)
       .switchMap(() => {
         this.isLoadingResults = true;
+        console.log(this.sort.direction);
         return this.pokemonService.getPokePage(this.sort.active, this.sort.direction, this.paginator.pageIndex);
       })
       .map((pokemen) => {
