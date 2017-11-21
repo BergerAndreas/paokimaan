@@ -9,6 +9,7 @@ import { AdminComponent } from './admin/admin.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { PokemonComponent} from './pokemon/pokemon.component';
 import { PokeStatsComponent } from './poke-stats/poke-stats.component';
+import { PokeChartComponent } from "./poke-chart/poke-chart.component";
 
 // Services
 import { PokemonService} from './services/pokemon.service';
@@ -19,19 +20,20 @@ import { AuthGuardLogin } from './services/auth-guard-login.service';
 import { AuthGuardAdmin } from './services/auth-guard-admin.service';
 
 // Modules
-import {
-  MatPaginatorModule,
-  MatTableModule,
-  MatListModule,
-  MatToolbarModule,
-  MatButtonModule,
-  MatIconModule,
-  MatProgressSpinnerModule,
-  MatInputModule,
-  MatSelectModule,
-  MatGridListModule,
-  MatSortModule
-} from '@angular/material';
+import { MatPaginatorModule,
+         MatTableModule,
+         MatListModule,
+         MatToolbarModule,
+         MatButtonModule,
+         MatIconModule,
+         MatProgressSpinnerModule,
+         MatInputModule,
+         MatSelectModule,
+         MatGridListModule,
+         MatCardModule,
+         MatSortModule
+       } from '@angular/material';
+
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -54,6 +56,8 @@ import { CapitalizePipe } from './pipes/capitalize.pipe';
     NotFoundComponent,
     NavbarComponent,
     PokeStatsComponent,
+    pokePieChart
+    PokeChartComponent
     CapitalizePipe
   ],
   imports: [
@@ -74,6 +78,7 @@ import { CapitalizePipe } from './pipes/capitalize.pipe';
     MatInputModule,
     MatSelectModule,
     MatGridListModule,
+    MatCardModule
     MatSortModule
   ],
   providers: [

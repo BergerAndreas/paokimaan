@@ -23,4 +23,10 @@ export class PokemonService {
     return this.http.get(`http://localhost:3000/api/pokemon/prr/${page + 1}?sortBy=${sort}&order=${order}`).map(res => res.json());
     // return this.http.get(`http://localhost:3000/api/pokemon/prr/?{sort}&order=${order}&page=${page + 1}`).map(res => res.json());
   }
+
+  // Get all pokemon with type
+  getPokeType(type): Observable<any> {
+    return this.http.get(`http://localhost:3000/api/pokemon/type/${type}`).map(res => res.json());
+  }
+
 }
