@@ -12,17 +12,16 @@ export default function setRoutes(app) {
   const pokemonCtrl = new PokemonCtrl();
   const userCtrl = new UserCtrl();
 
-  //Allow client to fetch data
+  // Allow client to fetch data
   router.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*"); //Can change * to allow request from specific clients
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.header('Access-Control-Allow-Origin', '*'); // Can change * to allow request from specific clients
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
     next();
   });
 
   // Pokemon
   router.route('/pokemon').get(pokemonCtrl.getAll);
   router.route('/pokemon/prr/:page').get(pokemonCtrl.getTen);
-  router.route('/pokemon/search/:page').get(pokemonCtrl.search);
   router.route('/pokemon/type/:type').get(pokemonCtrl.getType);
   router.route('/pokemon/count').get(pokemonCtrl.count);
   router.route('/pokemon/:id').get(pokemonCtrl.get);

@@ -9,7 +9,7 @@ export default class PokemonCtrl extends BaseCtrl {
     this.model.find({}, (err, docs) => {
       if (err) { return console.error(err); }
       res.json(docs);
-    }).sort({id:1});
+    }).sort({id: 1});
   }
 
   // Get by id
@@ -22,27 +22,24 @@ export default class PokemonCtrl extends BaseCtrl {
 
   // Get ten pokemen
   getTen = (req, res) => {
-    const type = req.query.type ? req.query.type : null
-    const sortBy = req.query.sortBy ? req.query.sortBy : 'id'
-    let typeFilter
-    if (type){
-      typeFilter = {type : type};
-    } else {
-      typeFilter = {};
-    }
-    this.model.paginate(typeFilter , {page: req.params.page,limit:10, sort:{[sortBy]:1}}, (err, docs) => {
-      if (err) { return console.error(err); }
-      res.json(docs);
-    })
-  }
+    const type = req.query.type ? req.query.type : null;
+    const sortBy = req.query.sortBy ? req.query.sortBy : 'id';
+    const nameSearch = req.query.search ? req.query.search : null;
+    const order = req.query.order === '1' ? 1 : -1;
 
-  // Search
-  search = (req, res) => {
-    const searchQuery = req.query.search ? req.query.search : "*"
-    this.model.paginate({name:{ "$regex": searchQuery, "$options": "i" }}, {page: req.params.page, limit:10, sort:{name:1}}, (err, docs) => {
+    const nameFilter = nameSearch ? {name: { '$regex': nameSearch, '$options': 'i' }} : {};
+    const typeFilter = type ? {type : type} : {};
+    const filter = {
+      $and: [
+        nameFilter,
+        typeFilter
+      ]
+    };
+
+    this.model.paginate(filter , {page: req.params.page, limit: 10, sort: {[sortBy]: [order]}}, (err, docs) => {
       if (err) { return console.error(err); }
       res.json(docs);
-    })
+    });
   }
 
   // Get pokemon by type
@@ -50,6 +47,6 @@ export default class PokemonCtrl extends BaseCtrl {
     this.model.find({ type: req.params.type }, (err, obj) => {
       if (err) { return console.error(err); }
       res.json(obj);
-    }).sort({id:1});
+    }).sort({id: 1});
   }
 }
