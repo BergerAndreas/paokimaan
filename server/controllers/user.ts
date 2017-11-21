@@ -18,4 +18,11 @@ export default class UserCtrl extends BaseCtrl {
     });
   }
 
+  // Get by id
+  get = (req, res) => {
+    this.model.findOne({ _id: req.params.id }, (err, obj) => {
+      if (err) { return console.error(err); }
+      res.json(obj);
+    }).populate('pokemen');
+  }
 }

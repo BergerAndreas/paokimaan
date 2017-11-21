@@ -30,8 +30,10 @@ import { MatPaginatorModule,
          MatInputModule,
          MatSelectModule,
          MatGridListModule,
-         MatCardModule
+         MatCardModule,
+         MatSortModule
        } from '@angular/material';
+
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -39,6 +41,8 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RoutingModule } from './routing.module';
 import { SharedModule } from './shared/shared.module';
 
+// Pipes
+import { CapitalizePipe } from './pipes/capitalize.pipe';
 
 @NgModule({
   declarations: [
@@ -52,7 +56,9 @@ import { SharedModule } from './shared/shared.module';
     NotFoundComponent,
     NavbarComponent,
     PokeStatsComponent,
+    pokePieChart
     PokeChartComponent
+    CapitalizePipe
   ],
   imports: [
     BrowserModule,
@@ -73,6 +79,7 @@ import { SharedModule } from './shared/shared.module';
     MatSelectModule,
     MatGridListModule,
     MatCardModule
+    MatSortModule
   ],
   providers: [
     D3Service,
