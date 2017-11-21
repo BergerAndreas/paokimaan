@@ -74,12 +74,7 @@ import { CapitalizePipe } from './pipes/capitalize.pipe';
     MatInputModule,
     MatSelectModule,
     MatGridListModule,
-<<<<<<< HEAD
-    MatExpansionModule
-
-=======
     MatSortModule
->>>>>>> 6902c4f9558b54322760033ed2cfae0f477b1ec0
   ],
   providers: [
     D3Service,
