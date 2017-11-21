@@ -1,0 +1,32 @@
+<mat-grid-list cols="5" rows = 3>
+
+  <!-- Selector -->
+  <mat-grid-tile [colspan]="1" [rowspan]="1">
+    <mat-form-field>
+      <mat-select placeholder="Type to display">
+        <mat-option *ngFor="let type of pokeTypeList" [value]="type" (click)="getPokemon(type)">
+          {{ type }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </mat-grid-tile>
+
+  <!-- PieChart -->
+  <mat-grid-tile [colspan]="2" [rowspan]="2">
+    <div id="piechart-container"></div>
+  </mat-grid-tile>
+
+
+  <!-- List -->
+  <mat-grid-tile [colspan]="1" [rowspan]="2">
+    <mat-list>
+      <mat-card>
+        <mat-list-item *ngFor="let type of pokeTypes">
+          <p mat-line> {{type.type}}: {{type.value}} </p>
+        </mat-list-item>
+      </mat-card>
+    </mat-list>
+  </mat-grid-tile>
+</mat-grid-list>
+
+

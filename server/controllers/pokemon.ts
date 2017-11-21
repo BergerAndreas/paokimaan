@@ -9,7 +9,7 @@ export default class PokemonCtrl extends BaseCtrl {
     this.model.find({}, (err, docs) => {
       if (err) { return console.error(err); }
       res.json(docs);
-    }).sort({id:1});
+    }).sort({id: 1});
   }
 
   // Get by id
@@ -22,17 +22,42 @@ export default class PokemonCtrl extends BaseCtrl {
 
   // Get ten pokemen
   getTen = (req, res) => {
-    this.model.paginate({}, { page: req.params.page,limit:10, sort:{id:1}}, (err, docs) => {
+    const type = req.query.type ? req.query.type : null;
+    const sortBy = req.query.sortBy ? req.query.sortBy : 'id';
+    const nameSearch = req.query.search ? req.query.search : null;
+    const order = req.query.order === 'asc' ? 1 : -1;
+
+    const nameFilter = nameSearch ? {name: { '$regex': nameSearch, '$options': 'i' }} : {};
+    const typeFilter = type ? {type : type} : {};
+    const filter = {
+      $and: [
+        nameFilter,
+        typeFilter
+      ]
+    };
+
+    this.model.paginate(filter , {page: req.params.page, limit: 10, sort: {[sortBy]: [order]}}, (err, docs) => {
       if (err) { return console.error(err); }
       res.json(docs);
-    })
+    });
   }
-
+  /*
   // Get pokemon by type
   getType = (req, res) => {
     this.model.find({ type: req.params.type }, (err, obj) => {
       if (err) { return console.error(err); }
       res.json(obj);
+    }).sort({id: 1});
+  }
+  */
+  // Get pokemon types by type
+  getType = (req, res) => {
+    console.log(req.params.type);
+    this.model.find({ type: req.params.type }, {type: true}, (err, obj) => {
+      if (err) { return console.error(err); }
+      res.json(obj);
     }).sort({id:1});
   }
+
+
 }

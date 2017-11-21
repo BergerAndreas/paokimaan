@@ -1,8 +1,14 @@
-
 <div class="poke-container">
 
+  <div class="example-header">
+    <mat-form-field floatPlaceholder="never">
+      <input matInput #filter placeholder="Search for Paokimåns">
+    </mat-form-field>
+  </div>
+
   <!-- Display Content in tabel -->
-  <mat-table [dataSource]="dataSource">
+  <mat-table [dataSource]="dataSource"
+             matSort matSortActive="id" matSortDisableClear matSortDirection="asc">
 
     <!--Image-->
     <ng-container matColumnDef="sprites">
@@ -14,31 +20,58 @@
 
     <!--ID-->
     <ng-container matColumnDef="id">
-      <mat-header-cell *matHeaderCellDef>Id</mat-header-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header disableClear="true">Id</mat-header-cell>
       <mat-cell *matCellDef="let pokemon"> {{pokemon.id}} </mat-cell>
     </ng-container>
 
     <!--Name-->
     <ng-container matColumnDef="name">
-      <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
-      <mat-cell *matCellDef="let pokemon"> {{pokemon.name}} </mat-cell>
+      <mat-header-cell *matHeaderCellDef mat-sort-header disableClear="true">Name</mat-header-cell>
+      <mat-cell *matCellDef="let pokemon"> {{pokemon.name | capitalize: true}} </mat-cell>
     </ng-container>
 
     <!--Type-->
     <ng-container matColumnDef="type">
       <mat-header-cell *matHeaderCellDef>Type</mat-header-cell>
       <mat-cell *matCellDef="let pokemon">
-          <img *ngFor="let type of pokemon.type" src="../../assets/types/{{type}}.png" alt="{{type}}" height="20">
+          <img *ngFor="let type of pokemon.type" src="../../assets/types/{{type}}.png" alt="{{type | capitalize}}" height="20">
       </mat-cell>
+    </ng-container>
+
+    <!-- Weight -->
+    <ng-container matColumnDef="weight">
+      <mat-header-cell *matHeaderCellDef mat-sort-header disableClear="true">Weight</mat-header-cell>
+      <mat-cell *matCellDef="let pokemon"> {{pokemon.weight*0.1 | number : '1.2-2'}}kg </mat-cell>
+    </ng-container>
+
+    <!-- Height -->
+    <ng-container matColumnDef="height">
+      <mat-header-cell *matHeaderCellDef mat-sort-header disableClear="true">Height</mat-header-cell>
+      <mat-cell *matCellDef="let pokemon"> {{pokemon.height*0.1  | number : '1.2-2'}}m </mat-cell>
     </ng-container>
 
     <!-- Expanded Content Column - The detail row is made up of this one column -->
     <ng-container matColumnDef="expandedDetail">
       <mat-cell *matCellDef="let detail">
-        The weight of {{detail.element.name}} is {{detail.element.weight}} lb.
+        {{detail.element.name | capitalize}} stands at {{ detail.element.height*0.1 | number : '1.2-2'}} meters tall, weighing in at {{ detail.element.weight*0.1 | number : '1.2-2'}} kilos.
 
+        <mat-grid-list  cols="2" rowHeight="2:1">
+          <!-- Front default -->
+          <mat-grid-tile><img src="{{detail.element.sprites.front_default}}" alt="Front Default"></mat-grid-tile>
+
+          <!-- Front Shiny -->
+          <mat-grid-tile><img src="{{detail.element.sprites.front_shiny}}" alt="Front Shiny"></mat-grid-tile>
+
+          <!-- Back Default -->
+          <mat-grid-tile><img src="{{detail.element.sprites.back_default}}" alt="Back"></mat-grid-tile>
+
+          <!-- Back Shiny -->
+          <mat-grid-tile><img src="{{detail.element.sprites.back_shiny}}" alt="Back Shiny"></mat-grid-tile>
+        </mat-grid-list>
+        <button mat-raised-button color="primary" (click)="addPokemonToUser(detail.element)" *ngIf="auth.loggedIn"> Add to team! </button>
         <!-- Pass pokeStats to child -->
         <app-poke-stats [pokemonStats] = "detail" ></app-poke-stats>
+
       </mat-cell>
     </ng-container>
 
