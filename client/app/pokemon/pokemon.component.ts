@@ -10,12 +10,12 @@ import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/switchMap';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { PokeStatsComponent } from '../poke-stats/poke-stats.component';
-import { MatPaginator } from '@angular/material';
+import { MatPaginator, MatSort } from '@angular/material';
+import {Http} from '@angular/http';
 import { AccountComponent } from '../account/account.component';
 import { AuthService } from '../services/auth.service';
 import { UserInterface} from '../account/account.component'
 import { UserService } from '../services/user.service';
-
 
 
 @Component({
@@ -34,20 +34,22 @@ import { UserService } from '../services/user.service';
 export class PokemonComponent implements OnInit {
 
   dataSource: PokemonDataSource | null;
-  displayedColumns = ['sprites', 'id', 'name', 'type'];
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  displayedColumns = ['sprites', 'name', 'id', 'weight', 'height', 'type'];
   isExpansionDetailRow = (row) => row.hasOwnProperty('detailRow');
 
   user: UserInterface;
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
 
   constructor(private pokemonService: PokemonService,
               private auth: AuthService,
-              private userService: UserService) {
+              private userService: UserService,
+              private http: Http) {
 
               }
 
   ngOnInit() {
-    this.dataSource = new PokemonDataSource(this.pokemonService, this.paginator);
+    this.dataSource = new PokemonDataSource(this.pokemonService, this.paginator, this.sort);
   }
 
 
@@ -94,7 +96,8 @@ export class PokemonDataSource extends DataSource<any>{
 
 
   constructor(private pokemonService: PokemonService,
-              private paginator: MatPaginator){
+              private paginator: MatPaginator,
+              private sort: MatSort){
     super();
 
   }
@@ -102,34 +105,30 @@ export class PokemonDataSource extends DataSource<any>{
   connect(): Observable<Pokemon[]>{
 
     const displayDataChanges = [
+      this.sort.sortChange,
       this.paginator.page
     ];
+
+    // If the user changes the sort order, reset back to the first page.
+    this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
 
     return Observable.merge(...displayDataChanges)
       .startWith(null)
       .switchMap(() => {
         this.isLoadingResults = true;
-        let data = this.pokemonService.getPokePage(this.paginator.pageIndex+1);
-        return data;
+        console.log(this.sort.direction);
+        return this.pokemonService.getPokePage(this.sort.active, this.sort.direction, this.paginator.pageIndex);
       })
       .map((pokemen) => {
         console.log(pokemen);
         const rows = [];
         this.isLoadingResults = false;
-        pokemen["docs"].forEach(element => rows.push(element, { detailRow: true, element }));
+        pokemen['docs'].forEach(element => rows.push(element, { detailRow: true, element }));
 
-        this.pageSize = Number(pokemen["limit"]);
-        this.resultsLength = Number(pokemen["total"]);
+        this.pageSize = Number(pokemen['limit']);
+        this.resultsLength = Number(pokemen['total']);
         return rows;
       });
-    /*
-    return this.pokemonService.getPokemen()
-      .map( (pokemon) => {
-        const rows = [];
-        pokemon.forEach(element => rows.push(element, { detailRow: true, element }));
-        return rows;
-      });
-     */
   }
 
   disconnect() { }
@@ -137,7 +136,7 @@ export class PokemonDataSource extends DataSource<any>{
 
 // Interface for pokemon API
 export interface Pokemon {
-  _id:string;
+  _id: string;
   stats: object;
   name: string;
   weight: number;

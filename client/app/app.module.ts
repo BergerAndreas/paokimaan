@@ -19,18 +19,19 @@ import { AuthGuardLogin } from './services/auth-guard-login.service';
 import { AuthGuardAdmin } from './services/auth-guard-admin.service';
 
 // Modules
-import { MatPaginatorModule,
-         MatTableModule,
-         MatListModule,
-         MatToolbarModule,
-         MatButtonModule,
-         MatIconModule,
-         MatProgressSpinnerModule,
-         MatInputModule,
-         MatSelectModule,
-         MatGridListModule,
-         MatExpansionModule
-       } from '@angular/material';
+import {
+  MatPaginatorModule,
+  MatTableModule,
+  MatListModule,
+  MatToolbarModule,
+  MatButtonModule,
+  MatIconModule,
+  MatProgressSpinnerModule,
+  MatInputModule,
+  MatSelectModule,
+  MatGridListModule,
+  MatSortModule
+} from '@angular/material';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -38,6 +39,8 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RoutingModule } from './routing.module';
 import { SharedModule } from './shared/shared.module';
 
+// Pipes
+import { CapitalizePipe } from './pipes/capitalize.pipe';
 
 @NgModule({
   declarations: [
@@ -50,7 +53,8 @@ import { SharedModule } from './shared/shared.module';
     AdminComponent,
     NotFoundComponent,
     NavbarComponent,
-    PokeStatsComponent
+    PokeStatsComponent,
+    CapitalizePipe
   ],
   imports: [
     BrowserModule,
@@ -70,8 +74,12 @@ import { SharedModule } from './shared/shared.module';
     MatInputModule,
     MatSelectModule,
     MatGridListModule,
+<<<<<<< HEAD
     MatExpansionModule
 
+=======
+    MatSortModule
+>>>>>>> 6902c4f9558b54322760033ed2cfae0f477b1ec0
   ],
   providers: [
     D3Service,
