@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import { PokemonService } from '../services/pokemon.service';
 import { DataSource } from '@angular/cdk/collections';
 import { Observable } from 'rxjs/Observable';
@@ -8,10 +8,14 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/switchMap';
+import 'rxjs/add/observable/fromEvent';
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/distinctUntilChanged';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { PokeStatsComponent } from '../poke-stats/poke-stats.component';
 import { MatPaginator, MatSort } from '@angular/material';
 import {Http} from '@angular/http';
+import {BehaviorSubject} from "rxjs/BehaviorSubject";
 
 
 @Component({
@@ -35,11 +39,19 @@ export class PokemonComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
+  @ViewChild('filter') filter: ElementRef;
 
   constructor(private pokemonService: PokemonService, private http: Http) { }
 
   ngOnInit() {
     this.dataSource = new PokemonDataSource(this.pokemonService, this.paginator, this.sort);
+    Observable.fromEvent(this.filter.nativeElement, 'keyup')
+      .debounceTime(150)
+      .distinctUntilChanged()
+      .subscribe(() => {
+        if (!this.dataSource) { return; }
+        this.dataSource.filter = this.filter.nativeElement.value;
+      });
   }
 
 }
@@ -48,7 +60,10 @@ export class PokemonDataSource extends DataSource<any>{
 
   resultsLength = 0;
   pageSize = 0;
-  isLoadingResults = false;
+
+  _filterChange = new BehaviorSubject('');
+  get filter(): string { return this._filterChange.value; }
+  set filter(filter: string) { this._filterChange.next(filter); }
 
   constructor(private pokemonService: PokemonService,
               private paginator: MatPaginator,
@@ -61,7 +76,8 @@ export class PokemonDataSource extends DataSource<any>{
 
     const displayDataChanges = [
       this.sort.sortChange,
-      this.paginator.page
+      this.paginator.page,
+      this._filterChange,
     ];
 
     // If the user changes the sort order, reset back to the first page.
@@ -70,19 +86,19 @@ export class PokemonDataSource extends DataSource<any>{
     return Observable.merge(...displayDataChanges)
       .startWith(null)
       .switchMap(() => {
-        this.isLoadingResults = true;
         console.log(this.sort.direction);
-        return this.pokemonService.getPokePage(this.sort.active, this.sort.direction, this.paginator.pageIndex);
+        return this.pokemonService.getPokePage(this.sort.active, this.sort.direction, this.paginator.pageIndex, this._filterChange.getValue());
       })
       .map((pokemen) => {
-        console.log(pokemen);
-        const rows = [];
-        this.isLoadingResults = false;
-        pokemen['docs'].forEach(element => rows.push(element, { detailRow: true, element }));
 
-        this.pageSize = Number(pokemen['limit']);
-        this.resultsLength = Number(pokemen['total']);
-        return rows;
+        return pokemen['docs'].slice().filter((item: Pokemon) => {
+          const rows = [];
+          pokemen['docs'].forEach(element => rows.push(element, { detailRow: true, element }));
+          this.pageSize = Number(pokemen['limit']);
+          this.resultsLength = Number(pokemen['total']);
+          let searchStr = (item.name).toLowerCase();
+          return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
+        });
       });
   }
 
