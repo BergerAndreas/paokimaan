@@ -56,9 +56,8 @@ import { CapitalizePipe } from './pipes/capitalize.pipe';
     NotFoundComponent,
     NavbarComponent,
     PokeStatsComponent,
-    pokePieChart
-    PokeChartComponent
-    CapitalizePipe
+    PokeChartComponent,
+    CapitalizePipe,
   ],
   imports: [
     BrowserModule,
@@ -78,8 +77,8 @@ import { CapitalizePipe } from './pipes/capitalize.pipe';
     MatInputModule,
     MatSelectModule,
     MatGridListModule,
-    MatCardModule
-    MatSortModule
+    MatCardModule,
+    MatSortModule,
   ],
   providers: [
     D3Service,

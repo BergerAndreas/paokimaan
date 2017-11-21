@@ -9,7 +9,8 @@ slik at endringene i brukergrensesnittet ikke har noen innvirkning på hvordan d
 og omvendt. For å oppnå dette, velger vi å ta i bruk MEAN Stacken, som innebærer Angular 
 (og i vårt tilfelle også Material for design) i frontend, med MongoDB som database sammen med Node/Express i backend. 
 For å håndtere server-siden av web-applikasjonen vår, planlegger vi å bruke et REST API. 
-Vi bruker mLab sin Amazon-deployment av MongoDB som “Database as a service (DBaaS)”. 
+~~Vi bruker mLab sin Amazon-deployment av MongoDB som “Database as a service (DBaaS)”.~~
+Vi bruker mongoDB på virtuell maskin fordi vi er nødt...
 
 ### MEAN Stack implementasjon
 <img src="https://www.dealfuel.com/wp-content/uploads/2016/10/meanjs-1024x492.png" width="600" height="300" />

@@ -12,14 +12,15 @@ import 'rxjs/add/observable/fromEvent';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { MatPaginator } from '@angular/material';
 import { PokeStatsComponent } from '../poke-stats/poke-stats.component';
 import { MatPaginator, MatSort } from '@angular/material';
 import {Http} from '@angular/http';
-import {BehaviorSubject} from "rxjs/BehaviorSubject";
+
+import {BehaviorSubject} from 'rxjs/BehaviorSubject';
+
 import { AccountComponent } from '../account/account.component';
 import { AuthService } from '../services/auth.service';
-import { UserInterface} from '../account/account.component'
+import { UserInterface} from '../account/account.component';
 import { UserService } from '../services/user.service';
 
 @Component({
@@ -75,21 +76,21 @@ export class PokemonComponent implements OnInit {
   }
 
   addPokemon(pokemon){
-    if(this.user.pokemen.length > 5){
-      alert("You can't add more pokemon to your team.");
+    if (this.user.pokemen.length > 5){
+      alert('You can\'t add more pokemon to your team.');
       return;
     }
-    var inTeam = false;
-    for(var i=0; i < this.user.pokemen.length; i++){
-      if(this.user.pokemen[i].order === pokemon.order){
+    let inTeam = false;
+    for (let i = 0; i < this.user.pokemen.length; i++){
+      if (this.user.pokemen[i].order === pokemon.order){
         inTeam = true;
       }
     }
-    if (inTeam===false){
+    if (inTeam === false){
       this.user.pokemen.push(pokemon);
     }
     else{
-      alert("Pokemon is already in your team!")
+      alert('Pokemon is already in your team!');
     }
     this.userService.editUser(this.user).subscribe(
       data => this.user = data,
@@ -137,10 +138,11 @@ export class PokemonDataSource extends DataSource<any>{
       })
       .map((pokemen) => {
         const rows = [];
-        let rendered = pokemen['docs'].slice().filter((item: Pokemon) => {
+        //Let instead of const if not working
+        const rendered = pokemen['docs'].slice().filter((item: Pokemon) => {
           this.pageSize = Number(pokemen['limit']);
           this.resultsLength = Number(pokemen['total']);
-          let searchStr = (item.name).toLowerCase();
+          const searchStr = (item.name).toLowerCase();
           console.log(searchStr);
           console.log(rows);
           return searchStr.indexOf(this.filter.toLowerCase()) !== -1;

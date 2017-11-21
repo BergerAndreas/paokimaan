@@ -41,15 +41,17 @@ describe('Component: App', () => {
   it('should display the navigation bar correctly for guests', () => {
     const de = fixture.debugElement.queryAll(By.css('button'));
     const de2 = fixture.debugElement.queryAll(By.css('span'));
-    expect(de.length).toBe(3);
+    expect(de.length).toBe(4);
     expect(de2.length).toBe(2);
 
     expect(de[0].nativeElement.textContent).toContain('accessible PAOKIMÅN');
     expect(de[1].nativeElement.textContent).toContain('airline_seat_flat_angled Login');
     expect(de[2].nativeElement.textContent).toContain('weekend Register');
+    expect(de[3].nativeElement.textContent).toContain('donut_smallPokeChart');
     expect(de[0].properties['routerLink'][0]).toBe('/');
     expect(de[1].properties['routerLink'][0]).toBe('/login');
     expect(de[2].properties['routerLink'][0]).toBe('/register');
+    expect(de[3].properties['routerLink'][0]).toBe('/chart');
   });
 
   it('should display the navigation bar correctly for logged users', () => {
@@ -57,15 +59,17 @@ describe('Component: App', () => {
     fixture.detectChanges();
     const de = fixture.debugElement.queryAll(By.css('button'));
 
-    expect(de.length).toBe(3);
+    expect(de.length).toBe(4);
 
     expect(de[0].nativeElement.textContent).toContain('accessible PAOKIMÅN');
     expect(de[1].nativeElement.textContent).toContain('Account (Tester)');
     expect(de[2].nativeElement.textContent).toContain('Logout');
+    expect(de[3].nativeElement.textContent).toContain('donut_smallPokeChart');
 
     expect(de[0].properties['routerLink'][0]).toBe('/');
     expect(de[1].properties['routerLink'][0]).toBe('/account');
     expect(de[2].properties['routerLink'][0]).toBe('/logout');
+    expect(de[3].properties['routerLink'][0]).toBe('/chart');
   });
 
   it('should display the navigation bar correctly for admin users', () => {
@@ -75,18 +79,20 @@ describe('Component: App', () => {
 
     const de = fixture.debugElement.queryAll(By.css('button'));
     const de2 = fixture.debugElement.queryAll(By.css('span'));
-    expect(de.length).toBe(4);
+    expect(de.length).toBe(5);
     expect(de2.length).toBe(2);
 
     expect(de[0].nativeElement.textContent).toContain('accessible PAOKIMÅN');
     expect(de[1].nativeElement.textContent).toContain('wc Account (Tester)');
-    expect(de[2].nativeElement.textContent).toContain('fitness_center Register');
+    expect(de[2].nativeElement.textContent).toContain('fitness_center Admin');
     expect(de[3].nativeElement.textContent).toContain('child_care Logout');
+    expect(de[4].nativeElement.textContent).toContain('donut_smallPokeChart');
 
     expect(de[0].properties['routerLink'][0]).toBe('/');
     expect(de[1].properties['routerLink'][0]).toBe('/account');
     expect(de[2].properties['routerLink'][0]).toBe('/admin');
     expect(de[3].properties['routerLink'][0]).toBe('/logout');
+    expect(de[4].properties['routerLink'][0]).toBe('/chart');
   });
 
 });
