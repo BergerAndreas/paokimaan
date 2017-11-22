@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { UserService } from '../services/user.service';
-import { ToastComponent } from '../shared/toast/toast.component';
 import { MatSnackBar } from '@angular/material';
 
 @Component({
@@ -35,7 +34,6 @@ export class RegisterComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
               private router: Router,
-              public toast: ToastComponent,
               private userService: UserService,
               private snackBar: MatSnackBar) { }
 
