@@ -59,13 +59,13 @@ export class RegisterComponent implements OnInit {
   register() {
     this.userService.register(this.registerForm.value).subscribe(
       res => {
-        this.snackBar.open('You have been registered on this site', '',{
+        this.snackBar.open('Registration successful', '',{
           duration: 2500,
         });
         this.router.navigate(['/login']);
       },
       error => {
-        this.snackBar.open('Your email already exist, try another one', '',{
+        this.snackBar.open('Email already exists', '',{
           duration: 3000,
         });
       }

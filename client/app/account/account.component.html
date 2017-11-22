@@ -2,7 +2,26 @@
 
 <!-- HTML for changing username and email -->
 <div class="card" *ngIf="!isLoading">
-    <div class="account">
+
+    <!-- HTML for changing your pokemon team -->
+    <mat-card class="pokemon">
+      <h2 class="header">Your custom Paokimån team</h2>
+      <mat-grid-list *ngFor="let pokemen of user.pokemen" cols="4" rowHeight="100px">
+        <mat-grid-tile>
+          <h4>{{pokemen.name | capitalize: true}}</h4>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <img mat-line *ngFor="let type of pokemen.type" src="../../assets/types/{{type}}.png" alt="{{type}}" height="20">
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <img src="{{pokemen.sprites.front_default}}" alt="Pokeman">
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <button mat-raised-button color="primary" (click)=changePokemenList(pokemen)> Delete</button>  </mat-grid-tile>
+      </mat-grid-list>
+    </mat-card>
+
+    <mat-card class="account">
     <h2 class="card-header">Account settings</h2>
     <p>Here you can change your account settings if you want to :) </p>
     <br>
@@ -23,23 +42,6 @@
         </button>
       </form>
     </div>
-  </div>
+  </mat-card>
 
-<!-- HTML for changing your pokemon team -->
-  <div class="pokemon">
-    <h2 class="header">Your custom Paokimån team</h2>
-    <mat-grid-list *ngFor="let pokemen of user.pokemen" cols="5" rowHeight="100px">
-    <mat-grid-tile>
-      <h4>{{pokemen.name | capitalize: true}}</h4>
-    </mat-grid-tile>
-    <mat-grid-tile>
-      <img mat-line *ngFor="let type of pokemen.type" src="../../assets/types/{{type}}.png" alt="{{type}}" height="20">
-    </mat-grid-tile>
-    <mat-grid-tile>
-      <img src="{{pokemen.sprites.front_default}}" alt="Pokeman">
-    </mat-grid-tile>
-    <mat-grid-tile>
-      <button mat-raised-button color="primary" (click)=changePokemenList(pokemen)> Delete</button>  </mat-grid-tile>
-    </mat-grid-list>
-  </div>
 </div>

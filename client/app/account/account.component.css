@@ -1,18 +1,21 @@
 
 .card{
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-around;
   padding-top: 50px;
 }
 
 .account{
-  width: 30%;
+  width: 50%;
   text-align: center;
+  margin: 0 auto;
+  overflow: hidden;
 }
 
 .pokemon{
-  width: 40%;
+  width: 50%;
+  margin: 0 auto 25px;
 }
 
 .header{

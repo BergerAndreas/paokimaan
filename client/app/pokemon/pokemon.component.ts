@@ -129,8 +129,8 @@ export class PokemonComponent implements OnInit {
   // Add a pokemon to user
   addPokemon(pokemon) {
     if (this.user.pokemen.length > 5) {
-      this.snackBar.open('You can\'t add more pokemon to your team, you will have to delete some pokemon.', '',{
-      duration: 3500,
+      this.snackBar.open('Your Paokimån team is currently full', '',{
+      duration: 2500,
     });
       return;
     }
@@ -142,12 +142,12 @@ export class PokemonComponent implements OnInit {
     }
     if (inTeam === false) {
       this.user.pokemen.push(pokemon);
-      this.snackBar.open('The pokemon have been added to your team', '' ,{
-      duration: 2000,
+      this.snackBar.open('Paokimån was successfully added to your team', '' ,{
+      duration: 2500,
     });
     } else {
-      this.snackBar.open('Pokemon is already in your team. Pick another pokemon', '' ,{
-      duration: 2000,
+      this.snackBar.open('Paokimån is already in your team. Pick another Paokimån', '' ,{
+      duration: 2500,
     });
     }
     // If not already in team, update user and save to database
