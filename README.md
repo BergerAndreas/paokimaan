@@ -3,7 +3,7 @@
 [![Fuck It](https://img.shields.io/badge/Fuck_it-Ship_it-green.svg)](http://s2.quickmeme.com/img/ae/ae0e0d5aaeabb36be15d3b36c1482afca92bc499c66bd8838d35e272ed938ad6.jpg)
 [![Prrrr](https://img.shields.io/badge/Prrrr-Prrrr-blue.svg)](https://forum.wordreference.com/threads/prrrr.2322271/)
 
-# SquadTeam45 
+# SquadTeam45
 
 prrrrr
 
@@ -30,7 +30,7 @@ npm i
 npm run dev
 ```
 
-To import data about pokemon into local mongoDB 
+To import data about pokemon into local mongoDB
 
 ``` bash
 cd pokescraper
@@ -51,7 +51,7 @@ To run the tests, navigate to the root folder, and run the following:
 npm run testbe
 ```
 
-Resoults in (as of 22.11.17):
+Results in (as of 22.11.17):
 
 ```bash
 
@@ -101,7 +101,7 @@ All files           |     85.3 |       45 |    83.78 |    89.96 |               
 
 ### Run frontend tests
 
-To run the tests do: 
+To run the tests do:
 ```bash
 ng test --sourcemap=false
 ```
@@ -111,7 +111,7 @@ To check test coverage do:
 ng test --single-run --code-coverage --sourcemap=false
 ```
 
-This should create a coverage folder inside the client directory 
+This should create a coverage folder inside the client directory
 ```bash
 cd coverage
 ```
@@ -150,7 +150,7 @@ Then open the `index.html` file. This will result to this picture:
   1. Pie chart at the "PokeChart" page, displaying amounts of Paokimåns belonging to the specified types
   2. Stats of a Paokimån is displayed in the expanded view of the Paokimån in the form of a bar chart
 - [x] The code is tested
-  1. Code is tested - As stated above, 'npm run testbe' runs our tests 
+  1. Code is tested - As stated above, 'npm run testbe' runs our tests
 - [x] The project is well documented
   1. ✓
 

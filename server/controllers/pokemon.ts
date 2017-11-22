@@ -52,7 +52,6 @@ export default class PokemonCtrl extends BaseCtrl {
 
   // Get pokemon types by type
   getType = (req, res) => {
-    console.log(req.params.type);
     this.model.find({ type: req.params.type }, {type: true}, (err, obj) => {
       if (err) { return console.error(err); }
       res.json(obj);
