@@ -5,6 +5,7 @@ import { JwtHelper } from 'angular2-jwt';
 
 import { UserService } from './user.service';
 
+//Service that makes component communicate with each other
 @Injectable()
 export class AuthService {
   loggedIn = false;
