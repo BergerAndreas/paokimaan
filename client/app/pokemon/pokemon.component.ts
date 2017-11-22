@@ -13,14 +13,12 @@ import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/observable/combineLatest';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { MatPaginator, MatSort } from '@angular/material';
+import { MatPaginator, MatSort, MatSnackBar } from '@angular/material';
 import { Http } from '@angular/http';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { AuthService } from '../services/auth.service';
 import { UserInterface} from '../account/account.component';
 import { UserService } from '../services/user.service';
-
-
 
 @Component({
   selector: 'app-pokemon',
@@ -37,24 +35,27 @@ import { UserService } from '../services/user.service';
 
 export class PokemonComponent implements OnInit {
 
-
   user: UserInterface;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild('filter') filter: ElementRef;
+  @ViewChild('minFilter') minFilter: ElementRef;
+  @ViewChild('maxFilter') maxFilter: ElementRef;
 
   dataSource: PokemonDataSource | null;
   displayedColumns = ['sprites', 'name', 'id', 'weight', 'height', 'type'];
   pokeTypeList = ['any', 'fire', 'water', 'grass', 'bug', 'poison', 'psychic', 'dark', 'ghost', 'dragon', 'flying',
     'fighting', 'normal', 'fairy', 'steel', 'rock', 'steel', 'rock', 'ground', 'electric', 'ice'];
-  chosenType: string;
+
+  chosenType='any';
 
   constructor(private pokemonService: PokemonService,
               private auth: AuthService,
               private userService: UserService,
-              private http: Http) {
-
+              private http: Http,
+              private snackBar: MatSnackBar) {
               }
+
 
   ngOnInit() {
     this.dataSource = new PokemonDataSource(
@@ -63,29 +64,57 @@ export class PokemonComponent implements OnInit {
       this.sort
     );
 
-    const keyUpEvent = Observable.fromEvent(
+    // Assign listener to text-input fields
+    const NameEvent = Observable.fromEvent(
       this.filter.nativeElement, 'keyup'
     );
 
-    keyUpEvent
+    const MinWeightEvent = Observable.fromEvent(
+      this.minFilter.nativeElement, 'keyup'
+    );
+
+    const MaxWeightEvent = Observable.fromEvent(
+      this.maxFilter.nativeElement, 'keyup'
+    );
+
+    // Merge the listeners
+    const allEvents = Observable.merge(NameEvent, MinWeightEvent, MaxWeightEvent);
+
+    allEvents
       .subscribe(() => {
         if (!this.dataSource) { return; }
         this.dataSource.filter = {
           name: this.filter.nativeElement.value,
-          type: (this.chosenType !== 'any' ? this.chosenType : '')
+          type: (this.chosenType !== 'any' ? this.chosenType : ''),
+          minWeight: this.minFilter.nativeElement.value,
+          maxWeight: this.maxFilter.nativeElement.value
         };
       });
   }
 
   isExpansionDetailRow = (row) => row.hasOwnProperty('detailRow');
 
+  // Selector is stupid and must handle changes differently than text
   getPokemenFromClick(type: string) {
     if (!this.dataSource) { return; }
 
     this.dataSource.filter = {
       name: this.filter.nativeElement.value,
-      type: (type !== 'any' ? type : '')
+      type: (type !== 'any' ? type : ''),
+      minWeight: this.minFilter.nativeElement.value,
+      maxWeight: this.maxFilter.nativeElement.value
     };
+  }
+
+  // Validate Weight Fields
+  _keyPress(event: any) {
+    const pattern = /[0-9\+\-\ ]/;
+    let inputChar = String.fromCharCode(event.charCode);
+
+    if (!pattern.test(inputChar)) {
+      // invalid character, prevent input
+      event.preventDefault();
+    }
   }
 
   // Get the user that is pushing the button
@@ -100,7 +129,9 @@ export class PokemonComponent implements OnInit {
   // Add a pokemon to user
   addPokemon(pokemon) {
     if (this.user.pokemen.length > 5) {
-      alert('You can\'t add more pokemon to your team.');
+      this.snackBar.open('You can\'t add more pokemon to your team, you will have to delete some pokemon.', '',{
+      duration: 3500,
+    });
       return;
     }
     let inTeam = false;
@@ -111,8 +142,13 @@ export class PokemonComponent implements OnInit {
     }
     if (inTeam === false) {
       this.user.pokemen.push(pokemon);
+      this.snackBar.open('The pokemon have been added to your team', '' ,{
+      duration: 2000,
+    });
     } else {
-      alert('Pokemon is already in your team!');
+      this.snackBar.open('Pokemon is already in your team. Pick another pokemon', '' ,{
+      duration: 2000,
+    });
     }
     // If not already in team, update user and save to database
     this.userService.editUser(this.user).subscribe(
@@ -121,6 +157,8 @@ export class PokemonComponent implements OnInit {
       () => inTeam = false
       );
   }
+
+
 }
 
 export class PokemonDataSource extends DataSource<any> {
@@ -128,7 +166,7 @@ export class PokemonDataSource extends DataSource<any> {
   resultsLength = 0;
   pageSize = 0;
 
-  _filterChange = new BehaviorSubject({ name: '', type: '' });
+  _filterChange = new BehaviorSubject({ name: '', type: '', minWeight: '', maxWeight: ''});
   get filter(): CustomFilter { return this._filterChange.value; }
   set filter(filter: CustomFilter) { this._filterChange.next(filter); }
 
@@ -159,7 +197,9 @@ export class PokemonDataSource extends DataSource<any> {
           this.sort.direction,
           this.paginator.pageIndex,
           this._filterChange.value.name,
-          this._filterChange.value.type
+          this._filterChange.value.type,
+          this._filterChange.value.minWeight,
+          this._filterChange.value.maxWeight
         );
       })
       .map((pokemen) => {
@@ -171,7 +211,6 @@ export class PokemonDataSource extends DataSource<any> {
           const searchStr = (item.name).toLowerCase();
           return searchStr.indexOf(this.filter.name.toLowerCase()) !== -1;
           });
-
         rendered.forEach(element => rows.push(element, { detailRow: true, element }));
         return rows;
       });
@@ -199,4 +238,6 @@ export interface Pokemon {
 export interface CustomFilter {
   name: string;
   type: string;
+  minWeight: string;
+  maxWeight: string;
 }

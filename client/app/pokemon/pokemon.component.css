@@ -61,3 +61,11 @@
   flex-grow: 1;
   margin-top: 8px;
 }
+
+.nameFilter{
+  min-width: 50%;
+}
+
+.nameFilter, .typeFilter, .minWeightFilter{
+  margin-right: 5px;
+}
