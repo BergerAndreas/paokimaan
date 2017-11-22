@@ -67,9 +67,8 @@ export class PokemonComponent implements OnInit {
       });
   }
 
-
-
-  addPokemonToUser(pokemon){
+  //Get the user that is pushing the button
+  getUserWhenPushing(pokemon){
       this.userService.getUser(this.auth.currentUser).subscribe(
         data => this.user = data,
         error => console.log(error),
@@ -77,6 +76,7 @@ export class PokemonComponent implements OnInit {
       );
   }
 
+  //Add a pokemon to user
   addPokemon(pokemon){
     if (this.user.pokemen.length > 5){
       alert('You can\'t add more pokemon to your team.');
@@ -94,6 +94,7 @@ export class PokemonComponent implements OnInit {
     else{
       alert('Pokemon is already in your team!');
     }
+    //If not already in team, update user and save to database
     this.userService.editUser(this.user).subscribe(
       data => this.user = data,
       error => console.log(error),

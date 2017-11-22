@@ -1,47 +1,46 @@
 <app-loading [condition]="isLoading"></app-loading>
 
+<!-- HTML for changing username and email -->
 <div class="card" *ngIf="!isLoading">
-  <div class="account">
-  <h2 class="card-header">Account settings</h2>
-  <p>Here you can change your account settings if you want to :) </p>
-  <br>
-  <div class="card-block">
-    <form #accountForm="ngForm" (ngSubmit)="save(user)">
-      <mat-form-field class="input-group">
-        <span class="input-group-addon"><i class="fa fa-user"></i></span>
-        <input matInput class="form-control" type="text" name="username" [(ngModel)]="user.username" placeholder="Username" required>
-      </mat-form-field>
-      <br>
-      <mat-form-field class="input-group">
-        <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-        <input matInput class="form-control" type="email" name="email" [(ngModel)]="user.email" placeholder="Email" required>
-      </mat-form-field>
-      <br>
-
-      <button mat-raised-button color="primary" class="btn btn-primary" type="submit" [disabled]="!accountForm.form.valid">
-        <i class="fa fa-save"></i> Save
-      </button>
-    </form>
-  </div>
+    <div class="account">
+    <h2 class="card-header">Account settings</h2>
+    <p>Here you can change your account settings if you want to :) </p>
+    <br>
+    <div class="card-block">
+      <form #accountForm="ngForm" (ngSubmit)="save(user)">
+        <mat-form-field class="input-group">
+          <span class="input-group-addon"><i class="fa fa-user"></i></span>
+          <input matInput class="form-control" type="text" name="username" [(ngModel)]="user.username" placeholder="Username" required>
+        </mat-form-field>
+        <br>
+        <mat-form-field class="input-group">
+          <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
+          <input matInput class="form-control" type="email" name="email" [(ngModel)]="user.email" placeholder="Email" required>
+        </mat-form-field>
+        <br>
+        <button mat-raised-button color="primary" class="btn btn-primary" type="submit" [disabled]="!accountForm.form.valid">
+          <i class="fa fa-save"></i> Save
+        </button>
+      </form>
+    </div>
   <app-toast [message]="toast.message"></app-toast>
   </div>
 
+<!-- HTML for changing your pokemon team -->
   <div class="pokemon">
-  <h2 class="header">Your custom Paokimån team</h2>
-
-  <mat-grid-list *ngFor="let pokemen of user.pokemen" cols="5" rowHeight="100px">
-  <mat-grid-tile>
-    <h4>{{pokemen.name | capitalize: true}}</h4>
-  </mat-grid-tile>
-  <mat-grid-tile>
-    <img mat-line *ngFor="let type of pokemen.type" src="../../assets/types/{{type}}.png" alt="{{type}}" height="20" width="80">
-  </mat-grid-tile>
-  <mat-grid-tile>
-    <img src="{{pokemen.sprites.front_default}}" alt="Pokeman">
-  </mat-grid-tile>
-  <mat-grid-tile>
-    <button mat-raised-button color="primary" (click)=changePokemenList(pokemen)> Delete</button>  </mat-grid-tile>
-  </mat-grid-list>
-
-</div>
+    <h2 class="header">Your custom Paokimån team</h2>
+    <mat-grid-list *ngFor="let pokemen of user.pokemen" cols="5" rowHeight="100px">
+    <mat-grid-tile>
+      <h4>{{pokemen.name | capitalize: true}}</h4>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <img mat-line *ngFor="let type of pokemen.type" src="../../assets/types/{{type}}.png" alt="{{type}}" height="20" width="80">
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <img src="{{pokemen.sprites.front_default}}" alt="Pokeman">
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <button mat-raised-button color="primary" (click)=changePokemenList(pokemen)> Delete</button>  </mat-grid-tile>
+    </mat-grid-list>
+  </div>
 </div>
