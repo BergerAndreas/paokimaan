@@ -1,6 +1,6 @@
 {
   "name": "squadteam-45",
-  "version": "1.0",
+  "version": "4.2.4",
   "license": "MIT",
   "author": "Anton",
   "description": "Angular Full Stack project built using Angular 2+, Express, Mongoose Node, and memes.",
