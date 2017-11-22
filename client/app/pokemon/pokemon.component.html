@@ -81,7 +81,7 @@
           <!-- Back Shiny -->
           <mat-grid-tile><img src="{{detail.element.sprites.back_shiny}}" alt="Back Shiny"></mat-grid-tile>
         </mat-grid-list>
-        <button mat-raised-button color="primary" (click)="getUserWhenPushing(detail.element)" *ngIf="auth.loggedIn"> Add to team! </button>
+        <button mat-raised-button color="primary" *ngIf="auth.loggedIn" (click)="getUserWhenPushing(detail.element)" > Add to team! </button>
         <!-- Pass pokeStats to child -->
         <app-poke-stats [pokemonStats] = "detail" ></app-poke-stats>
 

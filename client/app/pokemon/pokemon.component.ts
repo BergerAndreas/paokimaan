@@ -13,7 +13,7 @@ import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/observable/combineLatest';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { MatPaginator, MatSort } from '@angular/material';
+import { MatPaginator, MatSort, MatSnackBar } from '@angular/material';
 import { Http } from '@angular/http';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { AuthService } from '../services/auth.service';
@@ -52,7 +52,10 @@ export class PokemonComponent implements OnInit {
   constructor(private pokemonService: PokemonService,
               private auth: AuthService,
               private userService: UserService,
-              private http: Http) { }
+              private http: Http,
+              private snackBar: MatSnackBar) {
+              }
+
 
   ngOnInit() {
     this.dataSource = new PokemonDataSource(
@@ -126,7 +129,9 @@ export class PokemonComponent implements OnInit {
   // Add a pokemon to user
   addPokemon(pokemon) {
     if (this.user.pokemen.length > 5) {
-      alert('You can\'t add more pokemon to your team.');
+      this.snackBar.open('You can\'t add more pokemon to your team, you will have to delete some pokemon.', '',{
+      duration: 3500,
+    });
       return;
     }
     let inTeam = false;
@@ -137,8 +142,13 @@ export class PokemonComponent implements OnInit {
     }
     if (inTeam === false) {
       this.user.pokemen.push(pokemon);
+      this.snackBar.open('The pokemon have been added to your team', '' ,{
+      duration: 2000,
+    });
     } else {
-      alert('Pokemon is already in your team!');
+      this.snackBar.open('Pokemon is already in your team. Pick another pokemon', '' ,{
+      duration: 2000,
+    });
     }
     // If not already in team, update user and save to database
     this.userService.editUser(this.user).subscribe(
@@ -147,6 +157,8 @@ export class PokemonComponent implements OnInit {
       () => inTeam = false
       );
   }
+
+
 }
 
 export class PokemonDataSource extends DataSource<any> {

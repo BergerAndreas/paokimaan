@@ -30,7 +30,8 @@ import { MatPaginatorModule,
          MatSelectModule,
          MatGridListModule,
          MatCardModule,
-         MatSortModule
+         MatSortModule,
+         MatSnackBarModule
        } from '@angular/material';
 
 import { BrowserModule } from '@angular/platform-browser';
@@ -77,6 +78,7 @@ import { CapitalizePipe } from './pipes/capitalize.pipe';
     MatGridListModule,
     MatCardModule,
     MatSortModule,
+    MatSnackBarModule
   ],
   providers: [
     D3Service,
