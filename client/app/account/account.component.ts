@@ -54,7 +54,7 @@ export class AccountComponent implements OnInit {
       if (this.user.pokemen[i].order === pokemon.order) {
         this.user.pokemen.splice(i, 1);
       }
-      this.snackBar.open('Your pokemon list have now been updated', '',{
+      this.snackBar.open('Paokimån successfully removed from your team', '',{
         duration: 2500,
       });
       // Edit user and send to database, renders on callback
@@ -69,7 +69,7 @@ export class AccountComponent implements OnInit {
   // Creating a user
   save(user) {
     this.userService.editUser(user).subscribe(
-      res => {this.snackBar.open('Your account settings have been updated', '',{
+      res => {this.snackBar.open('Your account settings have been successfully updated', '',{
         duration: 2500,
       });},
       error => console.log(error)
