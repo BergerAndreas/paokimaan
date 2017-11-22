@@ -72,7 +72,7 @@ export class PokemonComponent implements OnInit {
         if (!this.dataSource) { return; }
         this.dataSource.filter = {
           name: this.filter.nativeElement.value,
-          type: this.chosenType
+          type: (this.chosenType !== 'any' ? this.chosenType : '')
         };
       });
   }
