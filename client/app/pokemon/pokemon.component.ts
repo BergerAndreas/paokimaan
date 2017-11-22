@@ -44,7 +44,7 @@ export class PokemonComponent implements OnInit {
 
   dataSource: PokemonDataSource | null;
   displayedColumns = ['sprites', 'name', 'id', 'weight', 'height', 'type'];
-  pokeTypeList = ['any', 'fire', 'water', 'grass', 'bug', 'poison', 'psychic', 'dark', 'ghost', 'dragon', 'flying',
+  pokeTypeList = ['any', 'fire', 'water', 'grass', 'bug', 'poison', 'psychic', 'ghost', 'dragon', 'flying',
     'fighting', 'normal', 'fairy', 'steel', 'rock', 'steel', 'rock', 'ground', 'electric', 'ice'];
 
   chosenType='any';
