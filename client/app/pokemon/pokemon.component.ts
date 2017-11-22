@@ -11,14 +11,11 @@ import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/observable/fromEvent';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
+import 'rxjs/add/observable/combineLatest';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { PokeStatsComponent } from '../poke-stats/poke-stats.component';
 import { MatPaginator, MatSort } from '@angular/material';
-import {Http} from '@angular/http';
-
-import {BehaviorSubject} from 'rxjs/BehaviorSubject';
-
-import { AccountComponent } from '../account/account.component';
+import { Http } from '@angular/http';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { AuthService } from '../services/auth.service';
 import { UserInterface} from '../account/account.component';
 import { UserService } from '../services/user.service';
@@ -43,6 +40,10 @@ export class PokemonComponent implements OnInit {
   dataSource: PokemonDataSource | null;
   displayedColumns = ['sprites', 'name', 'id', 'weight', 'height', 'type'];
   isExpansionDetailRow = (row) => row.hasOwnProperty('detailRow');
+  pokeTypeList = ['any', 'fire', 'water', 'grass', 'bug', 'poison', 'psychic', 'dark', 'ghost', 'dragon', 'flying',
+    'fighting', 'normal', 'fairy', 'steel', 'rock', 'steel', 'rock', 'ground', 'electric', 'ice'];
+
+  chosenType: string;
 
   user: UserInterface;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -57,19 +58,36 @@ export class PokemonComponent implements OnInit {
               }
 
   ngOnInit() {
-    this.dataSource = new PokemonDataSource(this.pokemonService, this.paginator, this.sort);
-    Observable.fromEvent(this.filter.nativeElement, 'keyup')
-      .debounceTime(150)
-      .distinctUntilChanged()
+    this.dataSource = new PokemonDataSource(
+      this.pokemonService,
+      this.paginator,
+      this.sort
+    );
+
+    const keyUpEvent = Observable.fromEvent(
+      this.filter.nativeElement, 'keyup'
+    );
+
+    keyUpEvent
       .subscribe(() => {
         if (!this.dataSource) { return; }
-        this.dataSource.filter = this.filter.nativeElement.value;
+        this.dataSource.filter = {
+          name: this.filter.nativeElement.value,
+          type: this.chosenType
+        };
       });
   }
 
+  getPokemenFromClick(type: string) {
+    if (!this.dataSource) { return; }
 
+    this.dataSource.filter = {
+      name: this.filter.nativeElement.value,
+      type: (type !== 'any' ? type : '')
+    };
+  }
 
-  addPokemonToUser(pokemon){
+  addPokemonToUser(pokemon) {
       this.userService.getUser(this.auth.currentUser).subscribe(
         data => this.user = data,
         error => console.log(error),
@@ -77,7 +95,7 @@ export class PokemonComponent implements OnInit {
       );
   }
 
-  addPokemon(pokemon){
+  addPokemon(pokemon) {
     if (this.user.pokemen.length > 5){
       alert('You can\'t add more pokemon to your team.');
       return;
@@ -102,25 +120,23 @@ export class PokemonComponent implements OnInit {
   }
 }
 
-export class PokemonDataSource extends DataSource<any>{
+export class PokemonDataSource extends DataSource<any> {
 
   resultsLength = 0;
   pageSize = 0;
 
-  _filterChange = new BehaviorSubject('');
-  get filter(): string { return this._filterChange.value; }
-  set filter(filter: string) { this._filterChange.next(filter); }
-
-
+  _filterChange = new BehaviorSubject({ name: '', type: '' });
+  get filter(): CustomFilter { return this._filterChange.value; }
+  set filter(filter: CustomFilter) { this._filterChange.next(filter); }
 
   constructor(private pokemonService: PokemonService,
               private paginator: MatPaginator,
-              private sort: MatSort){
+              private sort: MatSort) {
     super();
 
   }
 
-  connect(): Observable<Pokemon[]>{
+  connect(): Observable<Pokemon[]> {
 
     const displayDataChanges = [
       this.sort.sortChange,
@@ -134,19 +150,24 @@ export class PokemonDataSource extends DataSource<any>{
     return Observable.merge(...displayDataChanges)
       .startWith(null)
       .switchMap(() => {
-        console.log(this.sort.direction);
-        return this.pokemonService.getPokePage(this.sort.active, this.sort.direction, this.paginator.pageIndex,                 this._filterChange.getValue());
+        return this.pokemonService.getPokePage(
+          this.sort.active,
+          this.sort.direction,
+          this.paginator.pageIndex,
+          this._filterChange.value.name,
+          this._filterChange.value.type
+        );
       })
       .map((pokemen) => {
         const rows = [];
-        const rendered = pokemen['docs'].slice().filter((item: Pokemon) => {
+        const rendered = pokemen['docs'].slice()
+          .filter((item: Pokemon) => {
           this.pageSize = Number(pokemen['limit']);
           this.resultsLength = Number(pokemen['total']);
           const searchStr = (item.name).toLowerCase();
-          console.log(searchStr);
-          console.log(rows);
-          return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
-        });
+          return searchStr.indexOf(this.filter.name.toLowerCase()) !== -1;
+          });
+
         rendered.forEach(element => rows.push(element, { detailRow: true, element }));
         return rows;
       });
@@ -169,4 +190,9 @@ export interface Pokemon {
   moves: string[];
   type: string[];
   sprites: object;
+}
+
+export interface CustomFilter {
+  name: string;
+  type: string;
 }
