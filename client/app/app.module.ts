@@ -1,5 +1,4 @@
 // Components
-import { NavbarComponent} from './navbar/navbar.component';
 import { AppComponent } from './app.component';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
@@ -9,6 +8,7 @@ import { AdminComponent } from './admin/admin.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { PokemonComponent} from './pokemon/pokemon.component';
 import { PokeStatsComponent } from './poke-stats/poke-stats.component';
+import { PokeChartComponent } from './poke-chart/poke-chart.component';
 
 // Services
 import { PokemonService} from './services/pokemon.service';
@@ -27,8 +27,12 @@ import { MatPaginatorModule,
          MatIconModule,
          MatProgressSpinnerModule,
          MatInputModule,
-         MatSelectModule
+         MatSelectModule,
+         MatGridListModule,
+         MatCardModule,
+         MatSortModule
        } from '@angular/material';
+
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -36,6 +40,8 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RoutingModule } from './routing.module';
 import { SharedModule } from './shared/shared.module';
 
+// Pipes
+import { CapitalizePipe } from './pipes/capitalize.pipe';
 
 @NgModule({
   declarations: [
@@ -47,15 +53,16 @@ import { SharedModule } from './shared/shared.module';
     AccountComponent,
     AdminComponent,
     NotFoundComponent,
-    NavbarComponent,
-    PokeStatsComponent
+    PokeStatsComponent,
+    PokeChartComponent,
+    CapitalizePipe,
   ],
   imports: [
     BrowserModule,
     HttpModule,
     BrowserAnimationsModule,
 
-    //Material
+    // Material
     RoutingModule,
     SharedModule,
     MatListModule,
@@ -66,7 +73,10 @@ import { SharedModule } from './shared/shared.module';
     MatPaginatorModule,
     MatProgressSpinnerModule,
     MatInputModule,
-    MatSelectModule
+    MatSelectModule,
+    MatGridListModule,
+    MatCardModule,
+    MatSortModule,
   ],
   providers: [
     D3Service,

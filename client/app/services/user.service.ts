@@ -5,6 +5,7 @@ import { Http, Headers, RequestOptions } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
+// Service that makes component communicate with each other
 @Injectable()
 export class UserService {
 
@@ -43,6 +44,5 @@ export class UserService {
 
   deleteUser(user): Observable<any> {
     return this.http.delete(`/api/user/${user._id}`, this.options);
-  }
-
+    }
 }

@@ -4,13 +4,21 @@ import * as chaiHttp from 'chai-http';
 process.env.NODE_ENV = 'test';
 import { app } from '../app';
 import Pokemon from '../models/pokemon';
-
+import {TestPokemon} from './testpokemon';
 const should = chai.use(chaiHttp).should();
 
 describe('Pokemon', () => {
 
+  // Setup before each test
   beforeEach(done => {
     Pokemon.remove({}, err => {
+    });
+
+    // Get an example pokemon from file
+    const pokemon = new Pokemon(
+      TestPokemon
+    );
+    pokemon.save((err) => {
       done();
     });
   });
@@ -24,11 +32,12 @@ describe('Pokemon', () => {
           should.not.exist(err);
           res.should.have.status(200);
           res.body.should.be.a('array');
-          res.body.length.should.be.eql(151);
+          res.body.length.should.be.eql(1);
           done();
         });
     });
 
+    // Test of dynamic pagination
     it('should get ten pokemen', done => {
       chai.request(app)
         .get('/api/pokemon/prr/1')
@@ -45,12 +54,12 @@ describe('Pokemon', () => {
         .end((err, res) => {
           res.should.have.status(200);
           res.body.should.be.a('number');
-          res.body.should.be.eql(151);
+          res.body.should.be.eql(1);
           done();
         });
     });
 
-
+    // Get a pokemon by it's number in pokedex (not object id)
     it('should get a pokemon by its id', done => {
       chai.request(app)
         .get(`/api/pokemon/1`)
@@ -65,7 +74,8 @@ describe('Pokemon', () => {
         });
     });
 
-    it('should get a pokemon by its type', done => {
+    // Get pokemen of certain type
+    it('should get all pokemon by type', done => {
       chai.request(app)
         .get(`/api/pokemon/type/water`)
         .end((err, res) => {
