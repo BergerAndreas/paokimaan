@@ -22,6 +22,7 @@ export class AdminComponent implements OnInit {
     this.getUsers();
   }
 
+  //Get all users
   getUsers() {
     this.userService.getUsers().subscribe(
       data => this.users = data,
@@ -30,6 +31,7 @@ export class AdminComponent implements OnInit {
     );
   }
 
+  //Delete a single user
   deleteUser(user) {
     this.userService.deleteUser(user).subscribe(
       data => this.toast.setMessage('User deleted successfully.', 'success'),

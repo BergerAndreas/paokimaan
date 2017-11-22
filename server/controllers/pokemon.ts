@@ -22,11 +22,13 @@ export default class PokemonCtrl extends BaseCtrl {
 
   // Get ten pokemen
   getTen = (req, res) => {
+    // Setup for input variables
     const type = req.query.type ? req.query.type : null;
     const sortBy = req.query.sortBy ? req.query.sortBy : 'id';
     const nameSearch = req.query.search ? req.query.search : null;
     const order = req.query.order === 'asc' ? 1 : -1;
 
+    // Filters for search
     const nameFilter = nameSearch ? {name: { '$regex': nameSearch, '$options': 'i' }} : {};
     const typeFilter = type ? {type : type} : {};
     const filter = {
@@ -56,7 +58,7 @@ export default class PokemonCtrl extends BaseCtrl {
     this.model.find({ type: req.params.type }, {type: true}, (err, obj) => {
       if (err) { return console.error(err); }
       res.json(obj);
-    }).sort({id:1});
+    }).sort({id: 1});
   }
 
 

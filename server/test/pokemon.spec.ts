@@ -4,21 +4,23 @@ import * as chaiHttp from 'chai-http';
 process.env.NODE_ENV = 'test';
 import { app } from '../app';
 import Pokemon from '../models/pokemon';
-import {TestPokemon} from './testpokemon'
+import {TestPokemon} from './testpokemon';
 const should = chai.use(chaiHttp).should();
 
 describe('Pokemon', () => {
 
+  // Setup before each test
   beforeEach(done => {
     Pokemon.remove({}, err => {
     });
 
-    let pokemon = new Pokemon(
+    // Get an example pokemon from file
+    const pokemon = new Pokemon(
       TestPokemon
     );
     pokemon.save((err) => {
-      done()
-    })
+      done();
+    });
   });
 
   describe('Backend tests for Pokemen', () => {
@@ -35,6 +37,7 @@ describe('Pokemon', () => {
         });
     });
 
+    // Test of dynamic pagination
     it('should get ten pokemen', done => {
       chai.request(app)
         .get('/api/pokemon/prr/1')
@@ -56,7 +59,7 @@ describe('Pokemon', () => {
         });
     });
 
-
+    // Get a pokemon by it's number in pokedex (not object id)
     it('should get a pokemon by its id', done => {
       chai.request(app)
         .get(`/api/pokemon/1`)
@@ -71,7 +74,8 @@ describe('Pokemon', () => {
         });
     });
 
-    it('should get a pokemon by its type', done => {
+    // Get pokemen of certain type
+    it('should get all pokemon by type', done => {
       chai.request(app)
         .get(`/api/pokemon/type/water`)
         .end((err, res) => {

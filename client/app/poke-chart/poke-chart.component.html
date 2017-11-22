@@ -5,7 +5,7 @@
     <mat-form-field>
       <mat-select placeholder="Type to display">
         <mat-option *ngFor="let type of pokeTypeList" [value]="type" (click)="getPokemon(type)">
-          {{ type }}
+          {{ type  | capitalize: true}}
         </mat-option>
       </mat-select>
     </mat-form-field>
@@ -21,8 +21,9 @@
   <mat-grid-tile [colspan]="1" [rowspan]="2">
     <mat-list>
       <mat-card>
+        <h3>Number of Paokimåns</h3>
         <mat-list-item *ngFor="let type of pokeTypes">
-          <p mat-line> {{type.type}}: {{type.value}} </p>
+          <p mat-line> {{type.type | capitalize: true}}: {{type.value}} </p>
         </mat-list-item>
       </mat-card>
     </mat-list>
