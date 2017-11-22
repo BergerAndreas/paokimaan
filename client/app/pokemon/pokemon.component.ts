@@ -157,15 +157,12 @@ export class PokemonComponent implements OnInit {
       () => inTeam = false
       );
   }
-
-
 }
 
 export class PokemonDataSource extends DataSource<any> {
 
   resultsLength = 0;
   pageSize = 0;
-
   _filterChange = new BehaviorSubject({ name: '', type: '', minWeight: '', maxWeight: ''});
   get filter(): CustomFilter { return this._filterChange.value; }
   set filter(filter: CustomFilter) { this._filterChange.next(filter); }
@@ -204,6 +201,9 @@ export class PokemonDataSource extends DataSource<any> {
       })
       .map((pokemen) => {
         const rows = [];
+        pokemen["docs"].forEach(element => rows.push(element, { detailRow: true, element }));
+        this.pageSize = Number(pokemen["limit"]);
+        this.resultsLength = Number(pokemen["total"]);
         const rendered = pokemen['docs'].slice()
           .filter((item: Pokemon) => {
           this.pageSize = Number(pokemen['limit']);
