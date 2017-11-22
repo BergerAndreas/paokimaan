@@ -7,6 +7,8 @@ import { UserService } from '../services/user.service';
 import { HttpModule} from '@angular/http';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ToastComponent } from '../shared/toast/toast.component';
+import { CapitalizePipe } from "../pipes/capitalize.pipe";
+import { MatSnackBarModule } from "@angular/material";
 
 describe('AccountComponent', () => {
   let component: AccountComponent;
@@ -14,8 +16,8 @@ describe('AccountComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ RouterTestingModule, ReactiveFormsModule, FormsModule, HttpModule ],
-      declarations: [ AccountComponent ],
+      imports: [ RouterTestingModule, ReactiveFormsModule, FormsModule, HttpModule, MatSnackBarModule ],
+      declarations: [ AccountComponent, CapitalizePipe ],
       schemas: [ NO_ERRORS_SCHEMA ],
       providers: [ AuthService, UserService, ToastComponent ]
     })

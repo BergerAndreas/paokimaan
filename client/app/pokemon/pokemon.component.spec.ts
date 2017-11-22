@@ -5,7 +5,12 @@ import { MatTableModule } from "@angular/material";
 import { PokemonService } from "../services/pokemon.service";
 import { HttpModule } from "@angular/http";
 import { MatPaginator, MatPaginatorIntl, MatExpansionModule } from '@angular/material';
-
+import { CapitalizePipe } from "../pipes/capitalize.pipe";
+import { AuthService } from "../services/auth.service";
+import { UserService } from "../services/user.service";
+import { RouterTestingModule } from "@angular/router/testing";
+import { MatSnackBarModule } from "@angular/material";
+import { MatSort } from "@angular/material";
 
 describe('PokemonComponent', () => {
   let component: PokemonComponent;
@@ -13,10 +18,10 @@ describe('PokemonComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PokemonComponent, MatPaginator ],
+      declarations: [ PokemonComponent, MatPaginator, CapitalizePipe, MatSort ],
       schemas: [ NO_ERRORS_SCHEMA ],
-      imports : [ MatTableModule, HttpModule, MatExpansionModule ],
-      providers : [ PokemonService, MatPaginatorIntl ]
+      imports : [ MatTableModule, HttpModule, MatExpansionModule, RouterTestingModule, MatSnackBarModule ],
+      providers : [ PokemonService, MatPaginatorIntl, AuthService, UserService ]
     })
     .compileComponents();
   }));

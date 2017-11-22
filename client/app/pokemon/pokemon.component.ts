@@ -157,8 +157,6 @@ export class PokemonComponent implements OnInit {
       () => inTeam = false
       );
   }
-
-
 }
 
 export class PokemonDataSource extends DataSource<any> {

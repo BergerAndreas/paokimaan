@@ -7,6 +7,7 @@ import { RouterTestingModule } from "@angular/router/testing";
 import { HttpModule } from "@angular/http";
 import { ToastComponent } from "../shared/toast/toast.component";
 import { UserService } from "../services/user.service";
+import { MatSnackBarModule } from "@angular/material";
 
 describe('RegisterComponent', () => {
   let component: RegisterComponent;
@@ -16,7 +17,7 @@ describe('RegisterComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ RegisterComponent ],
       schemas: [ NO_ERRORS_SCHEMA ],
-      imports: [ ReactiveFormsModule, FormsModule, RouterTestingModule, HttpModule ],
+      imports: [ ReactiveFormsModule, FormsModule, RouterTestingModule, HttpModule, MatSnackBarModule ],
       providers: [ ToastComponent, UserService ]
     })
     .compileComponents();
@@ -32,4 +33,10 @@ describe('RegisterComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should display the string "Register" in h2', () => {
+    const el = fixture.debugElement.query(By.css('h2')).nativeElement;
+    expect(el.textContent).toContain('Register');
+  });
+
 });
