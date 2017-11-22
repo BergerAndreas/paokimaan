@@ -1,20 +1,20 @@
 <div class="poke-container">
 
   <div class="example-header">
-    <mat-form-field>
+    <mat-form-field class="nameFilter">
       <input matInput #filter placeholder="Search for Paokimåns">
     </mat-form-field>
-    <mat-form-field>
+    <mat-form-field class="typeFilter">
       <mat-select [(ngModel)]="chosenType" placeholder="Pokemon Type">
         <mat-option matInput *ngFor="let type of pokeTypeList" [value]="type" (click)="getPokemenFromClick(type)">
           {{type | capitalize: true}}
         </mat-option>
       </mat-select>
     </mat-form-field>
-    <mat-form-field>
+    <mat-form-field class="minWeightFilter">
       <input #minFilter matInput (keypress)="_keyPress($event)" placeholder="Min Weight">
     </mat-form-field>
-    <mat-form-field>
+    <mat-form-field class="maxWeightFilter">
       <input #maxFilter matInput (keypress)="_keyPress($event)" placeholder="Max Weight">
     </mat-form-field>
   </div>
