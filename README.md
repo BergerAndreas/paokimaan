@@ -18,7 +18,9 @@ npm run easy
 ```
 
 
-### Run the app
+### Run the app w/ local DB
+
+Install  [mongoDb](https://www.mongodb.com/)
 
 To run the app, clone the repository to a desired location, navigate to the root, install requirements, and run the app as such:
 ```bash
@@ -28,9 +30,19 @@ npm i
 npm run dev
 ```
 
+To import data about pokemon into local mongoDB 
+
+``` bash
+cd pokescraper
+mongoimport --jsonArray --db pokemon --collection pokeweebs --file pokemon.json
+```
+**PS.** Dette kan være et hælvete. Det er letter å kjøre: "npm run easy" for å kjøre med en database fra AWS ;)
+
 The app runs on localhost:4200
 
 The api runs on localhost:3000/api
+
+## Tests
 
 ### Run backend tests
 
