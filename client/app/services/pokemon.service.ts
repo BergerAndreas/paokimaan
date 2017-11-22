@@ -11,7 +11,7 @@ export class PokemonService {
 
   // How does english plural work?
   getPokemen(): Observable<any> {
-    return this.http.get('http://localhost:3000/api/pokemon/').map(res => res.json());
+    return this.http.get('/api/pokemon/').map(res => res.json());
   }
 
   getPokemon(pokemon): Observable<any> {
@@ -20,13 +20,13 @@ export class PokemonService {
 
   // Get page of tens
   getPokePage(sort: string, order: string, page: number, filter: string): Observable<any> {
-    return this.http.get(`http://localhost:3000/api/pokemon/prr/${page + 1}?sortBy=${sort}&order=${order}&search=${filter}`).map(res => res.json());
+    return this.http.get(`/api/pokemon/prr/${page + 1}?sortBy=${sort}&order=${order}&search=${filter}`).map(res => res.json());
     // return this.http.get(`http://localhost:3000/api/pokemon/prr/?{sort}&order=${order}&page=${page + 1}`).map(res => res.json());
   }
 
   // Get all pokemon with type
   getPokeType(type): Observable<any> {
-    return this.http.get(`http://localhost:3000/api/pokemon/type/${type}`).map(res => res.json());
+    return this.http.get(`/api/pokemon/type/${type}`).map(res => res.json());
   }
 
 }

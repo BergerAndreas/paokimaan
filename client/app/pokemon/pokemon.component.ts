@@ -39,15 +39,14 @@ import { UserService } from '../services/user.service';
 })
 
 export class PokemonComponent implements OnInit {
-
-  dataSource: PokemonDataSource | null;
-  displayedColumns = ['sprites', 'name', 'id', 'weight', 'height', 'type'];
-  isExpansionDetailRow = (row) => row.hasOwnProperty('detailRow');
-
   user: UserInterface;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild('filter') filter: ElementRef;
+
+  dataSource: PokemonDataSource | null;
+  displayedColumns = ['sprites', 'name', 'id', 'weight', 'height', 'type'];
+  isExpansionDetailRow = (row) => row.hasOwnProperty('detailRow');
 
   constructor(private pokemonService: PokemonService,
               private auth: AuthService,
@@ -67,8 +66,8 @@ export class PokemonComponent implements OnInit {
       });
   }
 
-  //Get the user that is pushing the button
-  getUserWhenPushing(pokemon){
+  // Get the user that is pushing the button
+  getUserWhenPushing(pokemon) {
       this.userService.getUser(this.auth.currentUser).subscribe(
         data => this.user = data,
         error => console.log(error),
@@ -76,25 +75,24 @@ export class PokemonComponent implements OnInit {
       );
   }
 
-  //Add a pokemon to user
-  addPokemon(pokemon){
-    if (this.user.pokemen.length > 5){
+  // Add a pokemon to user
+  addPokemon(pokemon) {
+    if (this.user.pokemen.length > 5) {
       alert('You can\'t add more pokemon to your team.');
       return;
     }
     let inTeam = false;
-    for (let i = 0; i < this.user.pokemen.length; i++){
-      if (this.user.pokemen[i].order === pokemon.order){
+    for (let i = 0; i < this.user.pokemen.length; i++) {
+      if (this.user.pokemen[i].order === pokemon.order) {
         inTeam = true;
       }
     }
-    if (inTeam === false){
+    if (inTeam === false) {
       this.user.pokemen.push(pokemon);
-    }
-    else{
+    } else {
       alert('Pokemon is already in your team!');
     }
-    //If not already in team, update user and save to database
+    // If not already in team, update user and save to database
     this.userService.editUser(this.user).subscribe(
       data => this.user = data,
       error => console.log(error),
@@ -103,7 +101,7 @@ export class PokemonComponent implements OnInit {
   }
 }
 
-export class PokemonDataSource extends DataSource<any>{
+export class PokemonDataSource extends DataSource<any> {
 
   resultsLength = 0;
   pageSize = 0;
@@ -116,12 +114,12 @@ export class PokemonDataSource extends DataSource<any>{
 
   constructor(private pokemonService: PokemonService,
               private paginator: MatPaginator,
-              private sort: MatSort){
+              private sort: MatSort) {
     super();
 
   }
 
-  connect(): Observable<Pokemon[]>{
+  connect(): Observable<Pokemon[]> {
 
     const displayDataChanges = [
       this.sort.sortChange,
@@ -137,7 +135,11 @@ export class PokemonDataSource extends DataSource<any>{
       .startWith(null)
       .switchMap(() => {
         console.log(this.sort.direction);
-        return this.pokemonService.getPokePage(this.sort.active, this.sort.direction, this.paginator.pageIndex,                 this._filterChange.getValue());
+        return this.pokemonService.getPokePage(
+          this.sort.active,
+          this.sort.direction,
+          this.paginator.pageIndex,
+          this._filterChange.getValue());
       })
       .map((pokemen) => {
         const rows = [];
