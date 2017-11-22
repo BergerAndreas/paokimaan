@@ -201,7 +201,6 @@ export class PokemonDataSource extends DataSource<any> {
       })
       .map((pokemen) => {
         const rows = [];
-        pokemen["docs"].forEach(element => rows.push(element, { detailRow: true, element }));
         this.pageSize = Number(pokemen["limit"]);
         this.resultsLength = Number(pokemen["total"]);
         const rendered = pokemen['docs'].slice()
