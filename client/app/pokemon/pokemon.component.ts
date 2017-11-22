@@ -44,7 +44,7 @@ export class PokemonComponent implements OnInit {
 
   dataSource: PokemonDataSource | null;
   displayedColumns = ['sprites', 'name', 'id', 'weight', 'height', 'type'];
-  pokeTypeList = ['any', 'fire', 'water', 'grass', 'bug', 'poison', 'psychic', 'dark', 'ghost', 'dragon', 'flying',
+  pokeTypeList = ['any', 'fire', 'water', 'grass', 'bug', 'poison', 'psychic', 'ghost', 'dragon', 'flying',
     'fighting', 'normal', 'fairy', 'steel', 'rock', 'steel', 'rock', 'ground', 'electric', 'ice'];
 
   chosenType='any';
@@ -157,15 +157,12 @@ export class PokemonComponent implements OnInit {
       () => inTeam = false
       );
   }
-
-
 }
 
 export class PokemonDataSource extends DataSource<any> {
 
   resultsLength = 0;
   pageSize = 0;
-
   _filterChange = new BehaviorSubject({ name: '', type: '', minWeight: '', maxWeight: ''});
   get filter(): CustomFilter { return this._filterChange.value; }
   set filter(filter: CustomFilter) { this._filterChange.next(filter); }
@@ -204,6 +201,8 @@ export class PokemonDataSource extends DataSource<any> {
       })
       .map((pokemen) => {
         const rows = [];
+        this.pageSize = Number(pokemen["limit"]);
+        this.resultsLength = Number(pokemen["total"]);
         const rendered = pokemen['docs'].slice()
           .filter((item: Pokemon) => {
           this.pageSize = Number(pokemen['limit']);

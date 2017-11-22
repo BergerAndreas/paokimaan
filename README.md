@@ -19,14 +19,36 @@ npm run dev
 
 The app runs on localhost:4200
 
-### Run tests
+### Run backend tests
 
 To run the tests, navigate to the root folder, and run the following:
 ```bash
 npm run testbe
 ```
 
-## Specifications for this task
+### Run frontend tests
+
+To run the tests do: 
+```bash
+cd client
+ng test --sourcemap=false
+```
+
+To check test coverage do:
+```bash
+cd client
+ng test --single-run --code-coverage --sourcemap=false
+```
+
+This should create a coverage folder inside the client directory 
+```bash
+cd coverage
+```
+
+Then open the `index.html` file
+
+
+## Specifications for this task:
 - [x] The web app
   1. Runs on our virtual machine
   2. Uses node.js
@@ -59,4 +81,3 @@ npm run testbe
   1. ✓
 
 ### Ikke fuck databasen vår plz takk
-
