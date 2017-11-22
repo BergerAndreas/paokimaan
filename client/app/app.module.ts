@@ -9,7 +9,7 @@ import { AdminComponent } from './admin/admin.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { PokemonComponent} from './pokemon/pokemon.component';
 import { PokeStatsComponent } from './poke-stats/poke-stats.component';
-import { PokeChartComponent } from "./poke-chart/poke-chart.component";
+import { PokeChartComponent } from './poke-chart/poke-chart.component';
 
 // Services
 import { PokemonService} from './services/pokemon.service';
@@ -64,7 +64,7 @@ import { CapitalizePipe } from './pipes/capitalize.pipe';
     HttpModule,
     BrowserAnimationsModule,
 
-    //Material
+    // Material
     RoutingModule,
     SharedModule,
     MatListModule,

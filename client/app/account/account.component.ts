@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ToastComponent } from '../shared/toast/toast.component';
 import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/user.service';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Pokemon } from '../pokemon/pokemon.component';
 
 
@@ -14,7 +13,7 @@ import { Pokemon } from '../pokemon/pokemon.component';
 
 export class AccountComponent implements OnInit {
 
-  user : UserInterface;
+  user: UserInterface;
   isLoading = true;
 
   tiles = [
@@ -41,13 +40,13 @@ export class AccountComponent implements OnInit {
     );
   }
 
-  userPokemen(){
+  userPokemen() {
     this.isLoading = false;
   }
 
-  changePokemenList(pokemon){
-    for(var i=0; i < this.user.pokemen.length; i++){
-      if (this.user.pokemen[i].order === pokemon.order){
+  changePokemenList(pokemon) {
+    for (let i = 0; i < this.user.pokemen.length; i++) {
+      if (this.user.pokemen[i].order === pokemon.order) {
         this.user.pokemen.splice(i, 1);
       }
       this.userService.editUser(this.user).subscribe(
@@ -67,9 +66,9 @@ export class AccountComponent implements OnInit {
 }
 
 export interface UserInterface {
-  _id:string;
-  email:string;
-  role:string;
-  username:string;
-  pokemen:Pokemon[];
+  _id: string;
+  email: string;
+  role: string;
+  username: string;
+  pokemen: Pokemon[];
 }

@@ -50,6 +50,7 @@ export class PokeChartComponent implements OnInit {
     this.pokeTypeList = ['fire', 'water', 'grass', 'bug', 'poison', 'psychic', 'dark', 'ghost', 'dragon', 'flying',
                          'fighting', 'normal', 'fairy', 'steel', 'rock', 'steel', 'rock', 'ground', 'electric', 'ice'];
     this.pokeTypes = [];
+    this.getPokemon('fire');
   }
 
   getPokemon(inputType) {
@@ -88,7 +89,7 @@ export class PokeChartComponent implements OnInit {
         const colour = [];
 
         for (let i = 0; i < labels.length; i++ ) {
-          let keys = labels[i].split(',');
+          const keys = labels[i].split(',');
           if (keys.length === 1) {
             colour.push(this.pokeColor[keys[0]]);
           } else {
@@ -102,7 +103,7 @@ export class PokeChartComponent implements OnInit {
         const d3 = this.d3;
 
         // Remove old SVG-element
-        d3.select("#pieChart").remove();
+        d3.select('#pieChart').remove();
 
         const width = 400,
               height = 400,
@@ -139,8 +140,8 @@ export class PokeChartComponent implements OnInit {
           });
 
         g.append('text')
-          .attr("transform", function(d: any) {
-            return "translate(" + labelArc.centroid(d) + ")";
+          .attr('transform', function(d: any) {
+            return 'translate(' + labelArc.centroid(d) + ')';
           })
           .attr('dy', '.35em')
           .text(function (d) {

@@ -56,7 +56,7 @@ export default class PokemonCtrl extends BaseCtrl {
     this.model.find({ type: req.params.type }, {type: true}, (err, obj) => {
       if (err) { return console.error(err); }
       res.json(obj);
-    }).sort({id:1});
+    }).sort({id: 1});
   }
 
 

@@ -14,7 +14,7 @@ import { D3Service,
 
 @Component({
   selector: 'app-poke-stats',
-  template: '<svg width="960" height="50"></svg>'
+  template: '<svg></svg>'
 })
 
 export class PokeStatsComponent implements OnInit {
@@ -37,9 +37,9 @@ export class PokeStatsComponent implements OnInit {
     let svg: any;
     let colors: any = [];
     const data: {name: string, yVal: number}[] = [];
-    const padding: number = 25;
-    const width: number = 500;
-    const height: number = 150;
+    const padding = 25;
+    const width = 500;
+    const height = 150;
     let xScale: any;
     let yScale: any;
     let xAxis: any;

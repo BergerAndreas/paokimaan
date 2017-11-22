@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { PokemonService } from '../services/pokemon.service';
 import { DataSource } from '@angular/cdk/collections';
 import { Observable } from 'rxjs/Observable';
@@ -12,13 +12,11 @@ import 'rxjs/add/observable/fromEvent';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { PokeStatsComponent } from '../poke-stats/poke-stats.component';
 import { MatPaginator, MatSort } from '@angular/material';
 import {Http} from '@angular/http';
 
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 
-import { AccountComponent } from '../account/account.component';
 import { AuthService } from '../services/auth.service';
 import { UserInterface} from '../account/account.component';
 import { UserService } from '../services/user.service';
@@ -40,20 +38,19 @@ import { UserService } from '../services/user.service';
 
 export class PokemonComponent implements OnInit {
 
-  dataSource: PokemonDataSource | null;
-  displayedColumns = ['sprites', 'name', 'id', 'weight', 'height', 'type'];
-  isExpansionDetailRow = (row) => row.hasOwnProperty('detailRow');
-
-  user: UserInterface;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild('filter') filter: ElementRef;
+  user: UserInterface;
+
+  dataSource: PokemonDataSource | null;
+  displayedColumns = ['sprites', 'name', 'id', 'weight', 'height', 'type'];
+  isExpansionDetailRow = (row) => row.hasOwnProperty('detailRow');
 
   constructor(private pokemonService: PokemonService,
               private auth: AuthService,
               private userService: UserService,
               private http: Http) {
-
               }
 
   ngOnInit() {
@@ -69,7 +66,7 @@ export class PokemonComponent implements OnInit {
 
 
 
-  addPokemonToUser(pokemon){
+  addPokemonToUser(pokemon) {
       this.userService.getUser(this.auth.currentUser).subscribe(
         data => this.user = data,
         error => console.log(error),
@@ -77,21 +74,21 @@ export class PokemonComponent implements OnInit {
       );
   }
 
-  addPokemon(pokemon){
-    if (this.user.pokemen.length > 5){
+  addPokemon(pokemon) {
+    if (this.user.pokemen.length > 5) {
       alert('You can\'t add more pokemon to your team.');
       return;
     }
     let inTeam = false;
-    for (let i = 0; i < this.user.pokemen.length; i++){
-      if (this.user.pokemen[i].order === pokemon.order){
+    for (let i = 0; i < this.user.pokemen.length; i++) {
+      if (this.user.pokemen[i].order === pokemon.order) {
         inTeam = true;
       }
     }
-    if (inTeam === false){
+    if (inTeam === false) {
       this.user.pokemen.push(pokemon);
     }
-    else{
+    else {
       alert('Pokemon is already in your team!');
     }
     this.userService.editUser(this.user).subscribe(
@@ -102,7 +99,7 @@ export class PokemonComponent implements OnInit {
   }
 }
 
-export class PokemonDataSource extends DataSource<any>{
+export class PokemonDataSource extends DataSource<any> {
 
   resultsLength = 0;
   pageSize = 0;
@@ -115,12 +112,12 @@ export class PokemonDataSource extends DataSource<any>{
 
   constructor(private pokemonService: PokemonService,
               private paginator: MatPaginator,
-              private sort: MatSort){
+              private sort: MatSort) {
     super();
 
   }
 
-  connect(): Observable<Pokemon[]>{
+  connect(): Observable<Pokemon[]> {
 
     const displayDataChanges = [
       this.sort.sortChange,
@@ -136,7 +133,7 @@ export class PokemonDataSource extends DataSource<any>{
       .startWith(null)
       .switchMap(() => {
         console.log(this.sort.direction);
-        return this.pokemonService.getPokePage(this.sort.active, this.sort.direction, this.paginator.pageIndex,                 this._filterChange.getValue());
+        return this.pokemonService.getPokePage(this.sort.active, this.sort.direction, this.paginator.pageIndex, this._filterChange.getValue());
       })
       .map((pokemen) => {
         const rows = [];
