@@ -1,9 +1,9 @@
 {
-  "name": "angular2-full-stack",
-  "version": "4.2.4",
+  "name": "squadteam-45",
+  "version": "1.0",
   "license": "MIT",
-  "author": "Davide Violante",
-  "description": "Angular Full Stack project built using Angular 2+, Express, Mongoose and Node.",
+  "author": "Anton",
+  "description": "Angular Full Stack project built using Angular 2+, Express, Mongoose Node, and memes.",
   "angular-cli": {},
   "engines": {
     "node": "6.11.4",

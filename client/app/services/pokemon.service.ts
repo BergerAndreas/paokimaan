@@ -19,8 +19,8 @@ export class PokemonService {
   }
 
   // Get page of tens
-  getPokePage(sort: string, order: string, page: number, filterName: string, filterType: string): Observable<any> {
-    return this.http.get(`/api/pokemon/prr/${page + 1}?sortBy=${sort}&order=${order}&search=${filterName}&type=${filterType}`).map(res => res.json());
+  getPokePage(sort: string, order: string, page: number, filterName: string, filterType: string, minWeight: string, maxWeight: string): Observable<any> {
+    return this.http.get(`/api/pokemon/prr/${page + 1}?sortBy=${sort}&order=${order}&search=${filterName}&type=${filterType}&minWeight=${minWeight}&maxWeight=${maxWeight}`).map(res => res.json());
   }
 
   // Get all pokemon with type
