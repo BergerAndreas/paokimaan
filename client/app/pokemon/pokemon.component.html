@@ -4,6 +4,13 @@
     <mat-form-field floatPlaceholder="never">
       <input matInput #filter placeholder="Search for Paokimåns">
     </mat-form-field>
+    <mat-form-field>
+      <mat-select [(ngModel)]="chosenType" placeholder="Pokemon Type">
+        <mat-option matInput *ngFor="let type of pokeTypeList" [value]="type" (click)="getPokemenFromClick(type)">
+          {{type | capitalize: true}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
   </div>
 
   <!-- Display Content in tabel -->
@@ -78,6 +85,9 @@
         <button class="addToTeam" mat-raised-button color="primary" (click)="addPokemonToUser(detail.element)" *ngIf="auth.loggedIn">
           Add to team
         </button>
+        
+        <!-- Pass pokeStats to child -->
+        <app-poke-stats [pokemonStats] = "detail" ></app-poke-stats>
 
       </mat-cell>
     </ng-container>

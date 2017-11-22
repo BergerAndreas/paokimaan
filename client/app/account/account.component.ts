@@ -16,6 +16,7 @@ export class AccountComponent implements OnInit {
   user: UserInterface;
   isLoading = true;
 
+  // Poketeam divided into tiles when displaying
   tiles = [
     {text:  'One', cols: 1, rows: 1, color: 'lightblue'},
     {text: 'Two', cols: 1, rows: 1, color: 'lightgreen'},
@@ -32,23 +33,31 @@ export class AccountComponent implements OnInit {
     this.getUser();
   }
 
+  // Get user from database based on authentication
   getUser() {
     this.userService.getUser(this.auth.currentUser).subscribe(
       data => this.user = data,
       error => console.log(error),
-      () => this.userPokemen()
+      () => this.notloading()
     );
   }
+
 
   userPokemen() {
     this.isLoading = false;
   }
 
+  notloading() {
+    this.isLoading = false;
+  }
+
+  // Check if pokemon in team, if not -> add
   changePokemenList(pokemon) {
     for (let i = 0; i < this.user.pokemen.length; i++) {
       if (this.user.pokemen[i].order === pokemon.order) {
         this.user.pokemen.splice(i, 1);
       }
+      // Edit user and send to database, renders on callback
       this.userService.editUser(this.user).subscribe(
         data => this.user = data,
         error => console.log(error),
@@ -57,6 +66,7 @@ export class AccountComponent implements OnInit {
     }
   }
 
+  // Creating a user
   save(user) {
     this.userService.editUser(user).subscribe(
       res => this.toast.setMessage('account settings saved!', 'success'),
@@ -65,6 +75,7 @@ export class AccountComponent implements OnInit {
   }
 }
 
+// Interface for a user
 export interface UserInterface {
   _id: string;
   email: string;

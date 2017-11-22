@@ -15,6 +15,7 @@ const pokemonSchema = new mongoose.Schema({
   sprites: Object
 }, {collection: 'pokemon'});
 
+// Pagination for sending only 10 pokemen at once
 pokemonSchema.plugin(mongoosePaginate);
 
 const Pokemon = mongoose.model('Pokemon', pokemonSchema);

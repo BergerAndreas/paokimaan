@@ -1,5 +1,4 @@
 // Components
-import { NavbarComponent} from './navbar/navbar.component';
 import { AppComponent } from './app.component';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
@@ -54,7 +53,6 @@ import { CapitalizePipe } from './pipes/capitalize.pipe';
     AccountComponent,
     AdminComponent,
     NotFoundComponent,
-    NavbarComponent,
     PokeStatsComponent,
     PokeChartComponent,
     CapitalizePipe,
