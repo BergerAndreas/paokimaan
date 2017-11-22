@@ -37,13 +37,6 @@ import { UserService } from '../services/user.service';
 
 export class PokemonComponent implements OnInit {
 
-  dataSource: PokemonDataSource | null;
-  displayedColumns = ['sprites', 'name', 'id', 'weight', 'height', 'type'];
-  isExpansionDetailRow = (row) => row.hasOwnProperty('detailRow');
-  pokeTypeList = ['any', 'fire', 'water', 'grass', 'bug', 'poison', 'psychic', 'dark', 'ghost', 'dragon', 'flying',
-    'fighting', 'normal', 'fairy', 'steel', 'rock', 'steel', 'rock', 'ground', 'electric', 'ice'];
-
-  chosenType: string;
 
   user: UserInterface;
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -52,7 +45,9 @@ export class PokemonComponent implements OnInit {
 
   dataSource: PokemonDataSource | null;
   displayedColumns = ['sprites', 'name', 'id', 'weight', 'height', 'type'];
-  isExpansionDetailRow = (row) => row.hasOwnProperty('detailRow');
+  pokeTypeList = ['any', 'fire', 'water', 'grass', 'bug', 'poison', 'psychic', 'dark', 'ghost', 'dragon', 'flying',
+    'fighting', 'normal', 'fairy', 'steel', 'rock', 'steel', 'rock', 'ground', 'electric', 'ice'];
+  chosenType: string;
 
   constructor(private pokemonService: PokemonService,
               private auth: AuthService,
@@ -81,6 +76,8 @@ export class PokemonComponent implements OnInit {
         };
       });
   }
+
+  isExpansionDetailRow = (row) => row.hasOwnProperty('detailRow');
 
   getPokemenFromClick(type: string) {
     if (!this.dataSource) { return; }
