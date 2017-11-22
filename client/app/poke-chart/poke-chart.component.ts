@@ -34,7 +34,6 @@ export class PokeChartComponent implements OnInit {
       bug: '#CFFA33',
       poison: '#9C3D94',
       psychic: '#FF33CC',
-      dark: '#322f32',
       ghost: '#660066',
       dragon: '#CC99FF',
       flying: '#9EC2F2',
@@ -47,9 +46,11 @@ export class PokeChartComponent implements OnInit {
       electric: '#FFFF00',
       ice: '#00FFFF',
     };
-    this.pokeTypeList = ['fire', 'water', 'grass', 'bug', 'poison', 'psychic', 'dark', 'ghost', 'dragon', 'flying',
+    this.pokeTypeList = ['fire', 'water', 'grass', 'bug', 'poison', 'psychic', 'ghost', 'dragon', 'flying',
                          'fighting', 'normal', 'fairy', 'steel', 'rock', 'steel', 'rock', 'ground', 'electric', 'ice'];
     this.pokeTypes = [];
+
+    this.getPokemon('grass');
   }
 
   getPokemon(inputType) {

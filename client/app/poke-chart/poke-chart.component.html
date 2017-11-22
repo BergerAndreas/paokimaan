@@ -1,7 +1,6 @@
-<mat-grid-list cols="5" rows = 3>
-
+<div style = "text-align:center; margin: 10px;">
   <!-- Selector -->
-  <mat-grid-tile [colspan]="1" [rowspan]="1">
+  <div>
     <mat-form-field>
       <mat-select placeholder="Type to display">
         <mat-option *ngFor="let type of pokeTypeList" [value]="type" (click)="getPokemon(type)">
@@ -9,16 +8,16 @@
         </mat-option>
       </mat-select>
     </mat-form-field>
-  </mat-grid-tile>
+  </div>
 
   <!-- PieChart -->
-  <mat-grid-tile [colspan]="2" [rowspan]="2">
+  <div>
     <div id="piechart-container"></div>
-  </mat-grid-tile>
+  </div>
 
 
   <!-- List -->
-  <mat-grid-tile [colspan]="1" [rowspan]="2">
+  <div>
     <mat-list>
       <mat-card>
         <h3>Number of Paokimåns</h3>
@@ -27,7 +26,5 @@
         </mat-list-item>
       </mat-card>
     </mat-list>
-  </mat-grid-tile>
-</mat-grid-list>
-
-
+  </div>
+</div>
