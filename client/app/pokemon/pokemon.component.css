@@ -1,20 +1,20 @@
 .poke-container {
   display: flex;
   flex-direction: column;
-  max-height: 500px;
   min-width: 300px;
 }
 
 .mat-table {
   overflow: auto;
-  max-height: 500px;
 }
 
-
-mat-grid-list{
-  width: 512px;
-  height: 512px;
-  margin-bottom: -850px;
+.images {
+  display: block;
+}
+.images div{
+  display: block;
+  float: left;
+  width: 150px;
 }
 
 .element-row {
@@ -60,4 +60,12 @@ mat-grid-list{
   font-size: 14px;
   flex-grow: 1;
   margin-top: 8px;
+}
+
+.nameFilter{
+  min-width: 50%;
+}
+
+.nameFilter, .typeFilter, .minWeightFilter{
+  margin-right: 5px;
 }

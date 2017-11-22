@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ToastComponent } from '../shared/toast/toast.component';
 import { AuthService } from '../services/auth.service';
 import { UserService } from '../services/user.service';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Pokemon } from '../pokemon/pokemon.component';
+import { MatSnackBar } from '@angular/material';
 
 
 @Component({
@@ -27,8 +27,8 @@ export class AccountComponent implements OnInit {
 
 
   constructor(private auth: AuthService,
-              public toast: ToastComponent,
-              private userService: UserService) { }
+              private userService: UserService,
+              private snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.getUser();
@@ -45,6 +45,7 @@ export class AccountComponent implements OnInit {
 
   notloading() {
     this.isLoading = false;
+
   }
 
   // Check if pokemon in team, if not -> add
@@ -53,6 +54,9 @@ export class AccountComponent implements OnInit {
       if (this.user.pokemen[i].order === pokemon.order) {
         this.user.pokemen.splice(i, 1);
       }
+      this.snackBar.open('Your pokemon list have now been updated', '',{
+        duration: 2500,
+      });
       // Edit user and send to database, renders on callback
       this.userService.editUser(this.user).subscribe(
         data => this.user = data,
@@ -65,7 +69,9 @@ export class AccountComponent implements OnInit {
   // Creating a user
   save(user) {
     this.userService.editUser(user).subscribe(
-      res => this.toast.setMessage('account settings saved!', 'success'),
+      res => {this.snackBar.open('Your account settings have been updated', '',{
+        duration: 2500,
+      });},
       error => console.log(error)
     );
   }

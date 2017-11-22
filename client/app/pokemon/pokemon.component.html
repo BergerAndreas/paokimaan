@@ -1,15 +1,21 @@
 <div class="poke-container">
 
   <div class="example-header">
-    <mat-form-field floatPlaceholder="never">
+    <mat-form-field class="nameFilter">
       <input matInput #filter placeholder="Search for Paokimåns">
     </mat-form-field>
-    <mat-form-field>
+    <mat-form-field class="typeFilter">
       <mat-select [(ngModel)]="chosenType" placeholder="Pokemon Type">
         <mat-option matInput *ngFor="let type of pokeTypeList" [value]="type" (click)="getPokemenFromClick(type)">
           {{type | capitalize: true}}
         </mat-option>
       </mat-select>
+    </mat-form-field>
+    <mat-form-field class="minWeightFilter">
+      <input #minFilter matInput (keypress)="_keyPress($event)" placeholder="Min Weight">
+    </mat-form-field>
+    <mat-form-field class="maxWeightFilter">
+      <input #maxFilter matInput (keypress)="_keyPress($event)" placeholder="Max Weight">
     </mat-form-field>
   </div>
 
@@ -60,22 +66,35 @@
     <!-- Expanded Content Column - The detail row is made up of this one column -->
     <ng-container matColumnDef="expandedDetail">
       <mat-cell *matCellDef="let detail">
+        <button mat-raised-button color="primary" (click)="getUserWhenPushing(detail.element)" *ngIf="auth.loggedIn"> Add to team! </button>
         {{detail.element.name | capitalize}} stands at {{ detail.element.height*0.1 | number : '1.2-2'}} meters tall, weighing in at {{ detail.element.weight*0.1 | number : '1.2-2'}} kilos.
 
-        <mat-grid-list  cols="2" rowHeight="2:1">
+        <div class = "images">
           <!-- Front default -->
-          <mat-grid-tile><img src="{{detail.element.sprites.front_default}}" alt="Front Default"></mat-grid-tile>
+          <div clss = "image">
+            <img src="{{detail.element.sprites.front_default}}" alt="Front Default">
+            <p>Front default</p>
+          </div>
 
           <!-- Front Shiny -->
-          <mat-grid-tile><img src="{{detail.element.sprites.front_shiny}}" alt="Front Shiny"></mat-grid-tile>
+          <div clss = "image">
+            <img src="{{detail.element.sprites.front_shiny}}" alt="Front Shiny">
+            <p>Front Shiny</p>
+          </div>
 
           <!-- Back Default -->
-          <mat-grid-tile><img src="{{detail.element.sprites.back_default}}" alt="Back"></mat-grid-tile>
+          <div clss = "image">
+            <img src="{{detail.element.sprites.back_default}}" alt="Back">
+            <p>Back Default</p>
+          </div>
 
           <!-- Back Shiny -->
-          <mat-grid-tile><img src="{{detail.element.sprites.back_shiny}}" alt="Back Shiny"></mat-grid-tile>
-        </mat-grid-list>
-        <button mat-raised-button color="primary" (click)="getUserWhenPushing(detail.element)" *ngIf="auth.loggedIn"> Add to team! </button>
+          <div clss = "image">
+            <img src="{{detail.element.sprites.back_shiny}}" alt="Back Shiny">
+            <p>Back Shiny</p>
+          </div>
+        </div>
+
         <!-- Pass pokeStats to child -->
         <app-poke-stats [pokemonStats] = "detail" ></app-poke-stats>
 
