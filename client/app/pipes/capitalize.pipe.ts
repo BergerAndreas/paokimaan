@@ -4,6 +4,7 @@ import { Pipe, PipeTransform } from '@angular/core';
   name: 'capitalize'
 })
 
+// Capitalization pipe to display Paokimån names etc. with capital letter
 export class CapitalizePipe implements PipeTransform {
 
   transform(value: any, words: boolean) {

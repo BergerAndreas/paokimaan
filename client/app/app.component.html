@@ -1,7 +1,10 @@
 <div class="toolbar">
   <mat-toolbar color="primary">
+    <!-- Navbar "title" -->
   <span>PAOKIMÅN</span>
+    <!-- Space between title and actual buttons -->
     <span class="menu_buttons"></span>
+    <!-- Actual buttons -->
       <button mat-button [routerLink]="['/']" ><mat-icon>accessible</mat-icon> PAOKIMÅN</button>
       <button mat-button [routerLink]="['/chart']" routerLinkActive="active"><mat-icon>donut_small</mat-icon>PokeChart</button>
       <button mat-button [routerLink]="['/login']" routerLinkActive="active" *ngIf="!auth.loggedIn" ><mat-icon>airline_seat_flat_angled</mat-icon> Login</button>

@@ -1,8 +1,6 @@
 <app-loading [condition]="isLoading"></app-loading>
 
-<!-- HTML for changing username and email -->
 <div class="card" *ngIf="!isLoading">
-
     <!-- HTML for changing your pokemon team -->
     <mat-card class="pokemon">
       <h2 class="header">Your custom Paokimån team</h2>
@@ -21,7 +19,8 @@
       </mat-grid-list>
     </mat-card>
 
-    <mat-card class="account">
+  <!-- HTML for changing username and email -->
+  <mat-card class="account">
     <h2 class="card-header">Account settings</h2>
     <p>Here you can change your account settings if you want to :) </p>
     <br>

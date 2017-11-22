@@ -1,31 +1,39 @@
+<!-- HTML for registration -->
 <div class="card">
   <h2 class="card-header">Register</h2>
   <div class="card-block">
     <br>
+    <!-- Form -->
     <form [formGroup]="registerForm" (ngSubmit)="register()">
+      <!-- Username -->
       <mat-form-field class="input-group" [ngClass]="setClassUsername()">
         <span class="input-group-addon"><i class="fa fa-user"></i></span>
         <input matInput class="form-control" type="text" name="username" formControlName="username" placeholder="Username" autofocus>
       </mat-form-field>
       <br>
+      <!-- Email -->
       <mat-form-field class="input-group" [ngClass]="setClassEmail()">
         <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
         <input matInput class="form-control" type="email" name="email" formControlName="email" placeholder="Email">
       </mat-form-field>
       <br>
+      <!-- Password -->
       <mat-form-field class="input-group" [ngClass]="setClassPassword()">
         <span class="input-group-addon"><i class="fa fa-key"></i></span>
         <input matInput class="form-control" type="password" name="password" formControlName="password" placeholder="Password">
       </mat-form-field>
       <br>
+      <!-- Role -->
       <mat-form-field class="input-group">
         <span class="input-group-addon"><i class="fa fa-black-tie"></i></span>
         <mat-select class="form-control" name="role" formControlName="role">
           <mat-option value="" selected disabled>Role</mat-option>
           <mat-option value="user">User</mat-option>
+          <!-- NOTE!! Previously had ability to select admin user; removed this for now, but chose to keep Role input -->
         </mat-select>
       </mat-form-field>
       <br>
+      <!-- Register button -->
       <button mat-raised-button color="primary" class="btn btn-primary" type="submit" [disabled]="!registerForm.valid"><i class="fa fa-user-plus"></i> Register</button>
     </form>
   </div>

@@ -1,5 +1,7 @@
+<!-- Main container -->
 <div class="poke-container">
 
+  <!-- Header with all filter/search abilities -->
   <div class="example-header">
     <mat-form-field class="nameFilter">
       <input matInput #filter placeholder="Search for Paokimåns">
@@ -19,11 +21,11 @@
     </mat-form-field>
   </div>
 
-  <!-- Display Content in tabel -->
+  <!-- Display Content in table -->
   <mat-table [dataSource]="dataSource"
              matSort matSortActive="id" matSortDisableClear matSortDirection="asc">
 
-    <!--Image-->
+    <!-- Image -->
     <ng-container matColumnDef="sprites">
       <mat-header-cell *matHeaderCellDef>Sprite</mat-header-cell>
       <mat-cell *matCellDef="let pokemon">
@@ -31,19 +33,19 @@
       </mat-cell>
     </ng-container>
 
-    <!--ID-->
+    <!-- ID -->
     <ng-container matColumnDef="id">
       <mat-header-cell *matHeaderCellDef mat-sort-header disableClear="true">Id</mat-header-cell>
       <mat-cell *matCellDef="let pokemon"> {{pokemon.id}} </mat-cell>
     </ng-container>
 
-    <!--Name-->
+    <!-- Name -->
     <ng-container matColumnDef="name">
       <mat-header-cell *matHeaderCellDef mat-sort-header disableClear="true">Name</mat-header-cell>
       <mat-cell *matCellDef="let pokemon"> {{pokemon.name | capitalize: true}} </mat-cell>
     </ng-container>
 
-    <!--Type-->
+    <!-- Type -->
     <ng-container matColumnDef="type">
       <mat-header-cell *matHeaderCellDef>Type</mat-header-cell>
       <mat-cell *matCellDef="let pokemon">
@@ -112,6 +114,8 @@
              style="overflow: hidden">
     </mat-row>
   </mat-table>
+
+  <!-- Paginator -->
   <mat-paginator [length]="dataSource.resultsLength"
                  [pageSize]="dataSource.pageSize">
   </mat-paginator>
